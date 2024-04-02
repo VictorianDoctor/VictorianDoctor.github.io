@@ -1,8 +1,10 @@
-body {
-    font-family: 'Courier New', monospace;
+* {
+    font-family: 'Courier New', monospace !important;
     letter-spacing: -0.4px;
+}
+
+* {
     color: #00FF66;
-    background-color: #282828; /* Change to darkgray or #282828 */
 }
 
 .header-container {
@@ -14,4 +16,8 @@ body {
     width: 100px;
     height: auto;
     margin-right: 10px;
+}
+
+body {
+    background-color: #282828;
 }
