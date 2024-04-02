@@ -6,10 +6,62 @@
     <title>Your Page Title</title>
     <!-- Add your CSS styles here -->
     <style>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+        /* Add your CSS styles here */
+        body {
+            font-family: 'Courier New', monospace !important;
+            letter-spacing: +0.22px;
+            word-spacing: -5px;
+            background-color: #282828;
+            color: #00FF66;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+        .header-container .image {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
+       }
+
+        .post {
+            margin-bottom: 20px;
+        }
+
+        .post-date {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .post-title {
+            font-size: 1.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
+    <div class="header-container">
+        <img src="image.jpg" alt="Header Image" class="image">
+        <h1>Welcome to the Midnight Cure Apothecary!</h1>
+    </div>
     <div class="container">
         <header class="header">
             <h1>Greetings, I’m Plague. If you expect a deep look into my life, You came to the wrong place.</h1>
@@ -24,7 +76,7 @@
         <!-- Repeat the post structure for each post -->
         
         <footer class="footer">
-            &copy; 2023 Your Website Name
+            &copy; 2024 Midnight Cure
         </footer>
     </div>
 </body>
