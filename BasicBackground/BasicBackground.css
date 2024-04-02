@@ -1,5 +1,4 @@
 @import url(https://mwittrien.github.io/BetterDiscordAddons/Themes/_res/SettingsIcons.css);
-@import url(https://mwittrien.github.io/BetterDiscordAddons/Themes/BlurpleRecolor/BlurpleRecolor.css);
 
 :root {
 	--transparencycolor:			0, 0, 0;
@@ -8,7 +7,7 @@
 	--guildchanneltransparency:		0.15;
 	--chatinputtransparency:		0.0;
 	--memberlisttransparency:		0.0;
-	--accentcolor:				190, 78, 180;
+	--accentcolor:				0, 255, 51;
 	
 	--settingsicons:			1;
 	--font:					"gg sans", "Noto Sans";
