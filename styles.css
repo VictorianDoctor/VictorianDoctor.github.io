@@ -1,4 +1,4 @@
-* {
+body {
     font-family: 'Courier New', monospace;
     letter-spacing: -0.4px;
     color: #00FF66;
@@ -10,7 +10,7 @@
     align-items: center;
 }
 
-.image {
+.header-container .image {
     width: 100px;
     height: auto;
     margin-right: 10px;
