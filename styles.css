@@ -1,6 +1,7 @@
 * {
     font-family: 'Courier New', monospace !important;
-    letter-spacing: -0.4px;
+    letter-spacing: +0.22px;
+    word-spacing: -5px;
 }
 
 * {
