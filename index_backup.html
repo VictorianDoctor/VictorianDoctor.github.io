@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="image.png" type="image/png">
     <title>Midnight Cure</title>
     <!-- Add your CSS styles here -->
     <style>
@@ -11,7 +12,9 @@
             font-family: 'Courier New', monospace !important;
             letter-spacing: +0.22px;
             word-spacing: -5px;
-            background-color: #282828;
+            background-image: url('Background/uI8IGgoQdzu1NUPKco0U--4--d6t5y.jpg'); /* Add the path to your background image */
+            background-size: cover; /* Ensures the background image covers the entire background */
+            background-repeat: no-repeat; /* Prevents the background image from repeating */
             color: #00FF66;
             margin: 0;
             padding: 0;
@@ -22,6 +25,9 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #282828; /* Add your desired background color for the container */
+            border-radius: 10px; /* Add rounded corners to the container */
+            opacity: 0.9; /* Adjust the opacity of the container */
         }
 
         .header {
@@ -37,7 +43,7 @@
             width: 100px;
             height: auto;
             margin-right: 10px;
-       }
+        }
 
         .post {
             margin-bottom: 20px;
@@ -67,7 +73,7 @@
 </head>
 <body>
     <div class="header-container">
-        <img src="image.jpg" alt="Header Image" class="image">
+        <img src="image.png" alt="Header Image" class="image">
         <h1>Midnight Cure Apothecary</h1>
     </div>
     <div class="container">
