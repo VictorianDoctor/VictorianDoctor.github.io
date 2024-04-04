@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About this Site</title>
+    <link rel="icon" href="image.png" type="image/png">
+    <title>Post Title (Date)</title>
     <!-- Add your CSS styles here -->
     <style>
         /* Add your CSS styles here */
@@ -11,16 +12,22 @@
             font-family: 'Courier New', monospace !important;
             letter-spacing: +0.22px;
             word-spacing: -5px;
-            background-color: #282828;
+            background-image: url('Background/h1XcI1HxR4VGYIyc98YZ--2--8wxul.jpg'); /* Add the path to your background image */
+            background-size: cover; /* Ensures the background image covers the entire background */
+            background-repeat: no-repeat; /* Prevents the background image from repeating */
             color: #00FF66;
             margin: 0;
             padding: 0;
+            position: relative;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #282828; /* Add your desired background color for the container */
+            border-radius: 10px; /* Add rounded corners to the container */
+            opacity: 0.9; /* Adjust the opacity of the container */
         }
 
         .header {
@@ -38,26 +45,13 @@
             margin-right: 10px;
         }
 
-        .post {
-            margin-bottom: 20px;
-        }
-
-        .post-date {
-            font-size: 1rem;
-            font-weight: bold;
-        }
-
-        .post-title {
-            font-size: 1.5rem;
-        }
-
         .footer {
             text-align: center;
             margin-top: 20px;
         }
 
         .home-link {
-            position: absolute;
+            position: static;
             top: 10px;
             right: 20px;
             text-decoration: none;
@@ -67,7 +61,7 @@
 </head>
 <body>
     <div class="header-container">
-        <img src="image.jpg" alt="Header Image" class="image">
+        <img src="image.png" alt="Header Image" class="image">
         <h1>Midnight Cure Apothecary</h1>
     </div>
     <div class="container">
@@ -80,7 +74,7 @@
 <body>
     <div class="container">
         <div class="content">
-            <p> Post Contents</p>
+            <p>Post Contents</p>
         </div>
         <footer class="footer">
             &copy; 2024 Midnight Cure
