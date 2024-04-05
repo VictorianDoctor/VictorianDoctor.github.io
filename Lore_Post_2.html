@@ -59,6 +59,15 @@
             text-decoration: none;
             color: #000; /* Added color for the About link */
         }
+
+        .audio-player {
+            position: static;
+            align-self: center;
+            background-color: #ccc7b3;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
     </style>
 </head>
 <body>
@@ -72,6 +81,12 @@
         <header class="header">
             <h1>What have I done..?</h1>
         </header>
+        <div class="audio-player">
+            <audio controls>
+                <source src="Lore_Post_2.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
 </head>
 <body>
     <div class="container">

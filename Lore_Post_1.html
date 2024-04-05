@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="image.png" type="image/png">
     <title>All New Beginnings! (Aimee, September 9th, 1868)</title>
-    <!-- Add your CSS styles here -->
     <style>
-        /* Add your CSS styles here */
         body {
             font-family: 'Century Schoolbook', monospace !important;
             font-size: 18px;
             letter-spacing: Normal;
             word-spacing: -5px;
-            background-image: url('Background/lKfKMt0hEyZjT8nP1Q23--1--3ny8x.jpg'); /* Add the path to your background image */
-            background-size: cover; /* Ensures the background image covers the entire background */
-            background-repeat: no-repeat; /* Prevents the background image from repeating */
+            background-image: url('Background/lKfKMt0hEyZjT8nP1Q23--1--3ny8x.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
             color: #883000;
             margin: 0;
             padding: 0;
@@ -26,9 +24,9 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #ccc7b3; /* Add your desired background color for the container */
-            border-radius: 10px; /* Add rounded corners to the container */
-            opacity: 0.9; /* Adjust the opacity of the container */
+            background-color: #ccc7b3;
+            border-radius: 10px;
+            opacity: 0.9;
         }
 
         .header {
@@ -57,7 +55,16 @@
             top: 10px;
             right: 20px;
             text-decoration: none;
-            color: #000; /* Added color for the About link */
+            color: #000;
+        }
+
+        .audio-player {
+            position: static;
+            align-self: center;
+            background-color: #ccc7b3;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
         }
     </style>
 </head>
@@ -72,9 +79,13 @@
         <header class="header">
             <h1>All New Beginnings!</h1>
         </header>
-</head>
-<body>
-    <div class="container">
+        <div class="audio-player">
+            <audio controls>
+                <source src="Lore_Post_1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        
         <div class="content">
             <p> Dear Journal,</p>
 
@@ -83,11 +94,14 @@
             <p>This new chapter of my life fills me with a mix of emotions - sadness, curiosity, and hope for a brighter future under the care of Dr. Athyes. Here's to a new beginning! </p>
                                 
             <p> Yours sincerely,</p>
-                <p> Aimee</p>
+            <p> Aimee</p>
         </div>
+
         <footer class="footer">
             &copy; 2024 Midnight Cure
         </footer>
     </div>
+
+
 </body>
 </html>
