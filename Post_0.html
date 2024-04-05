@@ -4,83 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="image.png" type="image/png">
-    <title>Post Title (Date)</title>
-    <!-- Add your CSS styles here -->
+    <title>Post About (Post Date)</title>
     <style>
-        /* Add your CSS styles here */
         body {
             font-family: 'Century Schoolbook', monospace !important;
             font-size: 18px;
             letter-spacing: Normal;
             word-spacing: -5px;
-            background-image: url('Background/uI8IGgoQdzu1NUPKco0U--3--2ecqj.jpg'); /* Add the path to your background image */
-            background-size: cover; /* Ensures the background image covers the entire background */
-            background-repeat: no-repeat; /* Prevents the background image from repeating */
+            background-image: url('Image/Path.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
             color: #883000;
             margin: 0;
             padding: 0;
             position: relative;
         }
-
+        .image {
+             max-width: 100%;
+             height: auto;
+             display: block;
+             margin: 0 auto;
+             padding: 10px;
+             box-sizing: border-box;
+        }
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #ccc7b3; /* Add your desired background color for the container */
-            border-radius: 10px; /* Add rounded corners to the container */
-            opacity: 0.9; /* Adjust the opacity of the container */
+            background-color: #ccc7b3;
+            border-radius: 10px;
+            opacity: 0.9;
         }
-
         .header {
             text-align: center;
             margin-bottom: 20px;
+            
         }
-
         .header-container {
             display: flex;
             align-items: center;
         }
-        
+    
         .header-container .image {
             width: 100px;
             height: auto;
             margin-right: 10px;
         }
-
         .footer {
             text-align: center;
             margin-top: 20px;
         }
-
         .home-link {
             position: static;
             top: 10px;
             right: 20px;
             text-decoration: none;
-            color: #000; /* Added color for the About link */
+            color: #000000;
         }
+        .header-image {
+            max-width: 100px;
+            height: auto;
+            display: block;
+             margin: 0;
+}
+
     </style>
 </head>
 <body>
     <div class="header-container">
-        <img src="image.png" alt="Header Image" class="image">
+        <img src="image.png" alt="Header Image" class="header-image">
         <h1>Midnight Cure Apothecary</h1>
     </div>
     <div class="container">
-        <p class="home-link"><a href="index.html" style="color: #000;">Home</a></p>
+        <p class="home-link"><a href="index.html" style="color: #000000;">Home</a></p>
         
         <header class="header">
-            <h1>Post Name</h1>
+            <h1>Post Title</h1>
         </header>
 </head>
 <body>
     <div class="container">
         <div class="content">
-            <p>Post Contents</p>
+            <p> Post content</p>
         </div>
         <footer class="footer">
+            <script src="https://giscus.app/client.js"
+        data-repo="VictorianDoctor/VictorianDoctor.github.io"
+        data-repo-id="R_kgDOLozQqQ"
+        data-category="General"
+        data-category-id="DIC_kwDOLozQqc4Cee70"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+        </script>
             &copy; 2024 Midnight Cure
         </footer>
     </div>
+
+
 </body>
 </html>
