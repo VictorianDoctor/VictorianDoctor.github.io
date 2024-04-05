@@ -9,123 +9,109 @@
 
 @font-face {
   font-family: myFirstFont;
-  src: url(sansation_light.woff);
+  src: url(Fonts/SCHLBKB.TTF);
 }
-
-div {
-  font-family: myFirstFont;
+ body {
+    font-family: myFirstFont !important;
+    font-size: 18px;
+    letter-spacing: Normal;
+    word-spacing: -5px;
+    background-image: url('Background/lKfKMt0hEyZjT8nP1Q23--1--3ny8x.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #883000;
+    margin: 0;
+    padding: 0;
+    position: relative;
 }
-        body {
-            font-family: 'Century Schoolbook' !important;
-            font-size: 18px;
-            letter-spacing: Normal;
-            word-spacing: -5px;
-            background-image: url('Background/lKfKMt0hEyZjT8nP1Q23--1--3ny8x.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            color: #883000;
-            margin: 0;
-            padding: 0;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #ccc7b3;
-            border-radius: 10px;
-            opacity: 0.9;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .header-container .image {
-            width: 100px;
-            height: auto;
-            margin-right: 10px;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .home-link {
-            position: static;
-            top: 10px;
-            right: 20px;
-            text-decoration: none;
-            color: #000000;
-        }
-
-        .audio-player {
-            position: static;
-            align-self: center;
-            background-color: #ccc7b3;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 100;
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ccc7b3;
+    border-radius: 10px;
+    opacity: 0.9;
+}
+ .header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.header-container {
+    display: flex;
+    align-items: center;
+}
+.header-container .image {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+.footer {
+    text-align: center;
+    margin-top: 20px;
+}
+.home-link {
+    position: static;
+    top: 10px;
+    right: 20px;
+    text-decoration: none;
+    color: #000000;
+}
+.audio-player {
+    position: static;
+    align-self: center;
+    background-color: #ccc7b3;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 100;
+}
     </style>
 </head>
 <body>
-    <div class="header-container">
-        <img src="image.png" alt="Header Image" class="image">
-        <h1>Midnight Cure Apothecary</h1>
-    </div>
-    <div class="container">
-        <p class="home-link"><a href="VictorianDoctor.github.io/index.html" style="color: #000000;">Home</a></p>
+<div class="header-container">
+    <img src="image.png" alt="Header Image" class="image">
+    <h1>Midnight Cure Apothecary</h1>
+</div>
+<div class="container">
+    <p class="home-link"><a href="VictorianDoctor.github.io/index.html" style="color: #000000;">Home</a></p>
         
-        <header class="header">
-            <h1>All New Beginnings!</h1>
-        </header>
-        <div class="audio-player">
-            <audio controls>
-                <source src="Lore_Post_1.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
+<header class="header">
+    <h1>All New Beginnings!</h1>
+</header>
+<div class="audio-player">
+    <audio controls>
+    <source src="Lore_Post_1.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+</div>
         
-        <div class="content">
-            <p> Dear Journal,</p>
+<div class="content">
+    <p> Dear Journal,</p>
+    <p>Today, my life took an unpredictable turn as I was adopted by the local doctor Athyes, after he tragically took the lives of my parents. Although the loss weighs heavy on my heart, I cannot deny the relief I feel knowing that my parents, who were unkind to me, are no longer present. I know not if Athyes knows that I know what he's done, and perhaps that is for the best.</p>
+    <p>This new chapter of my life fills me with a mix of emotions - sadness, curiosity, and hope for a brighter future under the care of Dr. Athyes. Here's to a new beginning! </p>
+    <p> Yours sincerely,</p>
+    <p> Aimee</p>
+</div>
 
-            <p>Today, my life took an unpredictable turn as I was adopted by the local doctor Athyes, after he tragically took the lives of my parents. Although the loss weighs heavy on my heart, I cannot deny the relief I feel knowing that my parents, who were unkind to me, are no longer present. I know not if Athyes knows that I know what he's done, and perhaps that is for the best.</p>
-                
-            <p>This new chapter of my life fills me with a mix of emotions - sadness, curiosity, and hope for a brighter future under the care of Dr. Athyes. Here's to a new beginning! </p>
-                                
-            <p> Yours sincerely,</p>
-            <p> Aimee</p>
-        </div>
-
-        <footer class="footer">
-            <script src="https://giscus.app/client.js"
-        data-repo="VictorianDoctor/VictorianDoctor.github.io"
-        data-repo-id="R_kgDOLozQqQ"
-        data-category="General"
-        data-category-id="DIC_kwDOLozQqc4Cee70"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="light"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-        </script>
-            &copy; 2024 Midnight Cure
-        </footer>
-    </div>
+<footer class="footer">
+    <script src="https://giscus.app/client.js"
+    data-repo="VictorianDoctor/VictorianDoctor.github.io"
+    data-repo-id="R_kgDOLozQqQ"
+    data-category="General"
+    data-category-id="DIC_kwDOLozQqc4Cee70"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+    </script>
+        &copy; 2024 Midnight Cure
+    </footer>
+</div>
 
 
 </body>
