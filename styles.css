@@ -31,7 +31,7 @@ body {
 .header-container .image {
     width: 100px;
     height: auto;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 .footer {
     text-align: center;
@@ -67,12 +67,4 @@ body {
     padding: 10px;
     border-radius: 5px;
     z-index: 100;
-}
-.image {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    padding: 10px;
-    box-sizing: border-box;
 }
