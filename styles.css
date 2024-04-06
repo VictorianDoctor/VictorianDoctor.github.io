@@ -1,0 +1,78 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(Fonts/SCHLBKB.TTF);
+}
+body {
+    font-family: myFirstFont !important;
+    font-size: 18px;
+    letter-spacing: Normal;
+    word-spacing: normal;
+    color: #883000;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ccc7b3; /* Add your desired background color for the container */
+    border-radius: 10px; /* Add rounded corners to the container */
+    opacity: 0.9; /* Adjust the opacity of the container */
+}
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.header-container {
+    display: flex;
+    align-items: center;
+}
+.header-container .image {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+.footer {
+    text-align: center;
+    margin-top: 20px;
+}
+.home-link {
+    position: static;
+    top: 10px;
+    right: 20px;
+    text-decoration: none;
+    color: #000000;
+}
+.about-link {
+    position: static;
+    top: 10px;
+    right: 20px;
+    text-decoration: none;
+}
+.post {
+    margin-bottom: 20px;
+}
+.post-date {
+    font-size: 1rem;
+    font-weight: bold;
+}
+.post-title {
+    font-size: 1.5rem;
+}
+.audio-player {
+    position: static;
+    align-self: center;
+    background-color: #ccc7b3;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 100;
+}
+.image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
