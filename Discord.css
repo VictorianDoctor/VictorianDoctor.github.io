@@ -1,0 +1,24 @@
+/**
+ * @name Midnight Cure Theme
+ * @author VictorianDoctor
+ * @description A custom theme based on the Midnight Cure Website
+ * @version 1
+ * @invite Y9bQgATj87
+ * @authorId 171767509442101248
+ * @source https://github.com/VictorianDoctor/AthyesFonts
+*/
+@font-face {
+    font-family: myFirstFont;
+    src: url(https://athyes.home.kg/Fonts/);
+}
+@import url(https://github.com/VictorianDoctor/AthyesFonts/SCHLBKB.TTF);
+* {
+    font-family: myFirstFont !important;
+    font-size: 18px;
+    letter-spacing: normal;
+    word-spacing: normal;
+}
+
+* {
+    color: #883000;
+}
