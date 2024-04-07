@@ -15,14 +15,29 @@ body {
 </style>
 </head>
 <body>
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li> <a href="https://athyes.home.kg/index.html" class="menu-item">Home</a></li>
+      <li> <a href="https://athyes.home.kg/about.html" class="menu-item">About</a></li>
+      <li> <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="menu-item">Do Not Click</a></li>
+    </ul>
+  </div>
+    <div class="banner">
+        <div class="logo">
+            <img src="logo.png" alt="Logo" class="logo-img">
+            <h1 class="site-name">Midnight Cure Apothecary</h1>
+        </div>
+        <div class="button-container">
+            <button><a href="https://athyes.home.kg/index_Dyslexic" style="color: #000; text-decoration: none;">Dyslexic Font</a></button>
+            <button onclick="toggleSidebar()">Menu</button>
+        </div>
+    </div>
     <div class="header-container">
-    <img src="image.png" alt="Header Image" class="image">
-    <h1>Midnight Cure Apothecary</h1>
-</div>
- <div class="container">
-    <p class="about-link"><a href="https://athyes.home.kg/about.html" style="color: #000000;">About</a></p>
+    </div>
+
+    <div class="container">
         
-    <header class="header">
+<header class="header">
     <h1>Welcome to Midnight Cure Apothecary!</h1>
     </header>
    
@@ -53,7 +68,13 @@ body {
         
     <footer class="footer">
         &copy; 2024 Midnight Cure
-    </footer>
-</div>
+</footer>
+    </div>
+    <script>
+        function toggleSidebar() {
+        var sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('open');
+        }
+    </script>
 </body>
 </html>

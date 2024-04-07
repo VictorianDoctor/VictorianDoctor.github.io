@@ -12,13 +12,63 @@ body {
     padding: 0;
     position: relative;
 }
+.banner {
+    background-color: #282828; /* Background color of the banner */
+    color: #fff; /* Text color of the banner */
+    padding: 10px 20px; /* Padding around the content */
+    display: flex; /* Flexbox for layout */
+    justify-content: space-between; /* Distribute items evenly */
+    align-items: center; /* Center items vertically */
+    width: 100%; /* Full width banner */
+    position: fixed; /* Fixed position at the top */
+    top: 0; /* Stick to the top */
+    z-index: 1000; /* Ensure it's above other content */
+}
+.logo {
+    display: flex; /* Flexbox for layout */
+    align-items: center; /* Center items vertically */
+}
+.logo-img {
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    margin-right: 10px; /* Spacing between logo and text */
+}
+.site-name {
+    margin: 0; /* Remove margin */
+}
+.button-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 10px;
+}
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    margin-top: 3%;
+    background-color: #ccc7b3;
+    border-radius: 10px;
+    opacity: 0.9;
+    position: fixed;
+    right: -200px; /* Change left to right */
+    transition: right 0.3s ease-in-out; /* Update transition property */
+}
+.sidebar.open {
+    right: 0; /* Change left to right */
+}
+.menu-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    color: #883000;
+}
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    margin-top: 5%;
     padding: 20px;
-    background-color: #ccc7b3; /* Add your desired background color for the container */
-    border-radius: 10px; /* Add rounded corners to the container */
-    opacity: 0.9; /* Adjust the opacity of the container */
+    background-color: #ccc7b3;
+    border-radius: 10px;
+    opacity: 0.9;
 }
 .header {
     text-align: center;
@@ -28,27 +78,9 @@ body {
     display: flex;
     align-items: center;
 }
-.header-container .image {
-    width: 100px;
-    height: auto;
-    margin-right: 10px;
-}
 .footer {
     text-align: center;
     margin-top: 20px;
-}
-.home-link {
-    position: static;
-    top: 10px;
-    right: 20px;
-    text-decoration: none;
-    color: #000000;
-}
-.about-link {
-    position: static;
-    top: 10px;
-    right: 20px;
-    text-decoration: none;
 }
 .post {
     margin-bottom: 20px;
