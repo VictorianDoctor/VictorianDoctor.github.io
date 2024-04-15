@@ -19,6 +19,7 @@ body {
     display: flex; /* Flexbox for layout */
     justify-content: space-between; /* Distribute items evenly */
     align-items: center; /* Center items vertically */
+    height: fit-content;
     width: 100%; /* Full width banner */
     position: fixed; /* Fixed position at the top */
     top: 0; /* Stick to the top */
