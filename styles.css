@@ -41,7 +41,7 @@ body {
     top: 0;
     right: 0;
     padding: 10px;
-    z-index: 12;
+    z-index: 11;
 }
 .sidebar {
     width: 200px;
@@ -53,7 +53,7 @@ body {
     position: fixed;
     right: -200px; /* Change left to right */
     transition: right 0.3s ease-in-out; /* Update transition property */
-    z-index: 11;
+    z-index: 10;
 }
 .sidebar.open {
     right: 0; /* Change left to right */
