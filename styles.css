@@ -41,6 +41,7 @@ body {
     top: 0;
     right: 0;
     padding: 10px;
+    z-index: 12;
 }
 .sidebar {
     width: 200px;
