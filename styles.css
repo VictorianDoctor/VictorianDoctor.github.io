@@ -42,7 +42,7 @@ body {
     top: 0;
     right: 0;
     padding: 10px;
-    z-index: 11;
+    z-index: 999;
 }
 .sidebar {
     width: 200px;
@@ -105,4 +105,20 @@ body {
     padding: 10px;
     border-radius: 5px;
     z-index: 100;
+}
+@media only screen and (max-width: 767px) {
+    body {
+        font-size: 12px;
+    }
+    .post-title {
+        font-size: 14px;
+    }
+    .container {
+        max-width: 80%;
+        margin-top: 15%;
+        padding: 10px;
+    }
+    .sidebar {
+        margin-top: 10%;
+    }
 }
