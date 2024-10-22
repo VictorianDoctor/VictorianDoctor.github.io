@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Plague Town Advert</title>
+    <style>
+body {
+    background-image: url('Background/lKfKMt0hEyZjT8nP1Q23--1--3ny8x.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li> <a href="https://athyes.home.kg/index.html" class="menu-item">Home</a></li>
+            <li> <a href="https://athyes.home.kg/about.html" class="menu-item">About</a></li>
+            <li> <a href="https://athyes.home.kg/athyes.html" class="menu-item">About the Author</a></li>
+        </ul>
+    </div>
+    <div class="banner">
+        <div class="logo">
+            <img src="logo.png" alt="Logo" class="logo-img">
+            <h1 class="site-name">Midnight Cure</h1>
+        </div>
+    <div class="button-container">
+        <button id="toggleFont" style="margin: 5px; padding: 5px; color: white; background-color: transparent;">Toggle Font</button>
+        <button onclick="toggleSidebar()" style="Color: white; background-color: transparent;">≡</button>
+        </div>
+    </div>
+    <div class="header-container"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1>Plague Town Advert</h1>
+        </header>
+
+        <div class="content">
+            <p>The world of Mendacium is so dark and hostile that even the harshest climates seem hospitable. The creatures and plants native to Mendacium are often aggressive, even those that lack sentience.</p>
+            <p>Mendacium primarily draws inspiration from Darkwood and Don't Starve. As such, it explores topics that some individuals might find uncomfortable or disturbing. </p>
+            <p>Plague Town is an ever-evolving Roleplay server based in the world described above. Due to the server being darker, things that may not be allowed in other servers are allowed here, such as death, although it is not permanent. Despite the dark connotations, the server is a safe place for everyone and features a bot to help people get set up, four unique custom races, and a unique roleplay experience.</p>
+            <p>If you are at all interested, <a href="https://discord.gg/YpM5cFtds7">Join Now!</a></p>
+        </div>
+
+        <footer class="footer">
+            <script src="https://giscus.app/client.js"
+                data-repo="VictorianDoctor/VictorianDoctor.github.io"
+                data-repo-id="R_kgDOLozQqQ"
+                data-category="General"
+                data-category-id="DIC_kwDOLozQqc4Cee70"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="en"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
+            </script>
+            &copy; 2024 Midnight Cure
+        </footer>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Dyslexic Font Toggle Functionality
+        document.getElementById('toggleFont').addEventListener('click', function() {
+            const contentElement = document.querySelector('.content');
+            contentElement.classList.toggle('dyslexic-font');
+        });
+    </script>
+</body>
+</html>

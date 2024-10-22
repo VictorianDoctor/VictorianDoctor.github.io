@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>The Raven Café</title>
-    <meta content="The Raven Café" property="og:title" />
-    <meta content="Welcome to The Raven Café!" property="og:description" />
+    <title>Midnight Cure</title>
+    <meta content="Midnight Cure" property="og:title" />
+    <meta content="Welcome to Midnight Cure!" property="og:description" />
     <meta content="https://athyes.home.kg/index.html" property="og:url" />
     <meta content="https://athyes.home.kg/logo.png" property="og:image" />
-    <meta content="#f1e5d1" data-react-helmet="true" name="theme-color" />
+    <meta content="#ccc7b3" data-react-helmet="true" name="theme-color" />
 <style>
 body {
     background-image: url('Background/uI8IGgoQdzu1NUPKco0U--3--2ecqj.jpg');
@@ -23,14 +23,14 @@ body {
 <div class="sidebar" id="sidebar">
     <ul>
         <li> <a href="https://athyes.home.kg/about.html" class="menu-item">About</a></li>
-        <li> <a href="https://atheys.home.kg/athyes.html" class="menu-item">About the Author</a></li>
-        <li> <a href="https://discord.gg/YpM5cFtds7" class="menu-item">Plague Town RP Discord</a></li>
+        <li> <a href="https://athyes.home.kg/athyes.html" class="menu-item">About the Author</a></li>
+        <li> <a href="https://discord.gg/YpM5cFtds7" class="menu-item">Plague Town Advert</a></li>
     </ul>
     </div>
     <div class="banner">
         <div class="logo">
             <img src="logo.png" alt="Logo" class="logo-img">
-            <h1 class="site-name">The Raven Café</h1>
+            <h1 class="site-name">Midnight Cure</h1>
         </div>
         <div class="button-container">
             <button onclick="toggleSidebar()" style="background-color: transparent;">≡</button>
@@ -42,7 +42,7 @@ body {
     <div class="container">
         
 <header class="header">
-    <h1>Welcome to The Raven Café!</h1>
+    <h1>Welcome to Midnight Cure!</h1>
     </header>
    
 <div class="container">
@@ -50,7 +50,7 @@ body {
 <div class="lore-posts">
 
 <div class="post">
-    <h2 class="post-title"><a href="https://athyes.home.kg/PT1.html" style="color:#000000;">Distant Memories</a></h2>
+    <h2 class="post-title"><a href="https://athyes.home.kg/PT1.html" style="color:#883000;">Distant Memories</a></h2>
     <p>Plague Post</p>
 </div>
     <!-- Add more PT posts here -->
@@ -60,26 +60,49 @@ body {
 <div class="irl-posts">
 
 <div class="post">
-    <h2 class="post-title"><a href="https://athyes.home.kg/IRL1.html" style="color:#000000;">Fragmented Minds</a></h2>
+    <h2 class="post-title"><a href="https://athyes.home.kg/IRL1.html" style="color:#883000;">Fragmented Minds</a></h2>
     <p>Custom Dead by Daylight Chapter (April 5th, 2024)</p>
 </div>
     <!-- Add more IRL posts here -->
 <div class="post">
-    <h2 class="post-title"><a href="https://athyes.home.kg/IRL2.html" style="color:#000000;">What Kind of D&D Character Would I Be?</a></h2>
+    <h2 class="post-title"><a href="https://athyes.home.kg/IRL2.html" style="color:#883000;">What Kind of D&D Character Would I Be?</a></h2>
     <p>D&D Class and Stats Results (April 11th, 2024)</p>
 </div>
         <!-- Add more IRL posts here -->
 </div>
         
 <footer class="footer">
-        &copy; 2024 The Raven Café
-</footer>
-    </div>
-    <script>
-        function toggleSidebar() {
-        var sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('open');
-        }
+    <script src="https://giscus.app/client.js"
+        data-repo="VictorianDoctor/VictorianDoctor.github.io"
+        data-repo-id="R_kgDOLozQqQ"
+        data-category="General"
+        data-category-id="DIC_kwDOLozQqc4Cee70"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
     </script>
+    &copy; 2024 Midnight Cure
+</footer>
+</div>
+
+<script>
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// Dyslexic Font Toggle Functionality
+document.getElementById('toggleFont').addEventListener('click', function() {
+    const contentElement = document.querySelector('.content');
+    contentElement.classList.toggle('dyslexic-font');
+});
+</script>
 </body>
 </html>

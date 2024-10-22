@@ -1,21 +1,32 @@
 @font-face {
-    font-family: myFirstFont;
-    src: url(Fonts/SCHLBKB.TTF);
+    font-family: HeaderFont;
+    src: url(Fonts/bodoni.ttf);
+}
+@font-face {
+    font-family: BodyFont;
+    src: url(Fonts/Caslon.ttf);
 }
 body {
-    font-family: myFirstFont !important;
-    font-size: 18px;
+    font-family: BodyFont;
+    font-size: 21px;
+    font-weight: 400;
     letter-spacing: normal;
     word-spacing: normal;
-    color: #000000;
+    color: #B7410E;
     margin: 0;
     padding: 0;
     position: relative;
+}  
+.dyslexic-font {
+    font-family: Verdana; 
+    font-size: 21px;
+    font-weight: 400;
 }
 .banner {
-    background-color: #282828; /* Background color of the banner */
+    background-color: #3B2A2A; /* Background color of the banner */
+    font-family: HeaderFont;
     color: #fff; /* Text color of the banner */
-    padding: 10px 20px; /* Padding around the content */
+    padding: 10px; /* Padding around the content */
     display: flex; /* Flexbox for layout */
     justify-content: space-between; /* Distribute items evenly */
     align-items: center; /* Center items vertically */
@@ -30,8 +41,8 @@ body {
     align-items: center; /* Center items vertically */
 }
 .logo-img {
-    width: 40px; /* Adjust size as needed */
-    height: 40px; /* Adjust size as needed */
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
     margin-right: 10px; /* Spacing between logo and text */
 }
 .site-name {
@@ -48,7 +59,7 @@ body {
     width: 200px;
     height: 100vh;
     margin-top: 3%;
-    background-color: #f1e5d1;
+    background-color: #ccc7b3;
     border-radius: 10px;
     opacity: 0.9;
     position: fixed;
@@ -62,7 +73,7 @@ body {
 .menu-item {
     padding: 5px;
     border-bottom: 1px solid #ccc;
-    color: #000000;
+    color: #883000;
 }
 .sidebar li {
     margin-bottom: 10px;
@@ -72,7 +83,7 @@ body {
     margin: 0 auto;
     margin-top: 5%;
     padding: 20px;
-    background-color: #f1e5d1;
+    background-color: #ccc7b3;
     border-radius: 10px;
     opacity: 0.9;
 }
@@ -85,6 +96,7 @@ body {
     align-items: center;
 }
 .footer {
+    font-family: HeaderFont;
     text-align: center;
     margin-top: 20px;
 }
@@ -101,7 +113,7 @@ body {
 .audio-player {
     position: static;
     align-self: center;
-    background-color: #f1e5d1;
+    background-color: #ccc7b3;
     padding: 10px;
     border-radius: 5px;
     z-index: 100;

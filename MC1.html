@@ -19,17 +19,17 @@ body {
         <ul>
             <li> <a href="https://athyes.home.kg/index.html" class="menu-item">Home</a></li>
             <li> <a href="https://athyes.home.kg/about.html" class="menu-item">About</a></li>
-            <li> <a href="https://atheys.home.kg/athyes.html" class="menu-item">About the Author</a></li>
-            <li> <a href="https://athyes.home.kg/MC1_Dyslexic" class="menu-item">Dyslexic Font</a></li>
+            <li> <a href="https://athyes.home.kg/athyes.html" class="menu-item">About the Author</a></li>
             <li> <a href="https://discord.gg/YpM5cFtds7" class="menu-item">Plague Town RP Discord</a></li>
         </ul>
         </div>
     <div class="banner">
         <div class="logo">
             <img src="logo.png" alt="Logo" class="logo-img">
-            <h1 class="site-name">The Raven Café</h1>
+            <h1 class="site-name">Midnight Cure</h1>
         </div>
         <div class="button-container">
+            <button id="toggleFont" style="margin: 5px; padding: 5px; color: white; background-color: transparent;">Toggle Font</button>
             <button onclick="toggleSidebar()" style="background-color: transparent;">≡</button>
         </div>
     </div>
@@ -73,14 +73,21 @@ body {
         crossorigin="anonymous"
         async>
     </script>
-        &copy; 2024 The Raven Café
+    &copy; 2024 Midnight Cure
 </footer>
-    </div>
-    <script>
-        function toggleSidebar() {
-        var sidebar = document.getElementById('sidebar');
-        sidebar.classList.toggle('open');
-        }
-    </script>
+</div>
+
+<script>
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// Dyslexic Font Toggle Functionality
+document.getElementById('toggleFont').addEventListener('click', function() {
+    const contentElement = document.querySelector('.content');
+    contentElement.classList.toggle('dyslexic-font');
+});
+</script>
 </body>
 </html>
