@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Continuous Random Song Player</title>
+    <title>Quantum Radio</title>
 </head>
 <body>
-    <h1>Continuous Random Song Player</h1>
+    <h1>Quantum Radio</h1>
     <audio id="audio-player" controls autoplay></audio>
 
     <script>
         const songsFolder = 'Songs/';
         const adsFolder = 'Ads/';
 
-        const songs = [
-            'song1.mp3',
-            'song2.mp3',
-            'song3.mp3', // Add more song files as needed
-        ];
+        // Generating songs from song1.mp3 to song262.mp3
+        const songs = [];
+        for (let i = 1; i <= 262; i++) {
+            songs.push(`song${i}.mp3`);
+        }
 
-        const ads = [
-            'ad1.mp3',
-            'ad2.mp3', // Add more ad files as needed
-        ];
+        const ads = [];
+        for (let i = 1; i <= 125; i++) {
+            ads.push(`ad${i}.mp3`);
+        }
+
 
         let currentSongCount = 0;
 
