@@ -3,51 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Radio Player</title>
+    <title>Continuous Random Song Player</title>
 </head>
 <body>
-
-    <audio id="audioPlayer" controls>
-        <source id="audioSource" src="" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
-    <button onclick="playRandomTracks()">Play Random Tracks</button>
+    <h1>Continuous Random Song Player</h1>
+    <audio id="audio-player" controls autoplay></audio>
 
     <script>
-        const Songs = [
-            src: url(Quantum Radio/Songs)
+        const songsFolder = 'Songs/';
+        const adsFolder = 'Ads/';
+
+        const songs = [
+            'song1.mp3',
+            'song2.mp3',
+            'song3.mp3', // Add more song files as needed
         ];
 
-        const Ads = [
-            'Quantum Radio/Ads/songA.mp3'
+        const ads = [
+            'ad1.mp3',
+            'ad2.mp3', // Add more ad files as needed
         ];
 
-        function getRandomTracks(tracks, number) {
-            const shuffled = tracks.sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, number);
+        let currentSongCount = 0;
+
+        function getRandomSong(array) {
+            const randomIndex = Math.floor(Math.random() * array.length);
+            return array[randomIndex];
         }
 
-        function playRandomTracks() {
-            const randomTracks = getRandomTracks(Songs, 2);
-            const nextTrack = Ads[0];
+        function playNext() {
+            let audioPlayer = document.getElementById('audio-player');
 
-            const allTracks = [...randomTracks, nextTrack];
-            let currentTrack = 0;
+            if (currentSongCount < 2) {
+                // Play a song
+                audioPlayer.src = songsFolder + getRandomSong(songs);
+                currentSongCount++;
+            } else {
+                // Play an ad
+                audioPlayer.src = adsFolder + getRandomSong(ads);
+                currentSongCount = 0; // Reset counter after playing an ad
+            }
 
-            const playNext = () => {
-                if (currentTrack < allTracks.length) {
-                    document.getElementById('audioSource').src = allTracks[currentTrack];
-                    document.getElementById('audioPlayer').load();
-                    document.getElementById('audioPlayer').play();
-                    currentTrack++;
-                }
-            };
-
-            playNext();
-            document.getElementById('audioPlayer').addEventListener('ended', playNext);
+            audioPlayer.play();
         }
+
+        // Event listener for when audio ends
+        document.getElementById('audio-player').addEventListener('ended', playNext);
+
+        // Start playing the first song
+        playNext();
     </script>
-
 </body>
 </html>
