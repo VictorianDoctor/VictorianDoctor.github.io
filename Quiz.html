@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>What Warframe Should You Main?</title>
+<style>
+body {
+  font-family: sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 5vh;
+}
+
+.container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.question {
+  margin-bottom: 20px;
+}
+
+.question p {
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>What Warframe Should You Main?</h1>
+  <form id="warframeQuiz">
+    <div class="question">
+      <p>Preferred Primary Playstyle?</p>
+      <label><input type="radio" name="primrole" value="damage" data-warframe-points='{"Atlas":10,"Chroma":5,"Cyte-09":10,"Dagath":10,"Dante":5,"Ember":10,"Excalibur":10,"Gara":5,"Garuda":10,"Gauss":10,"Hildryn":10,"Khora":5,"Koumei":10,"Kullervo":10,"Lavos":10,"Mesa":10,"Mirage":10,"Nezha":10,"Nidus":5,"Nova":5,"Protea":10,"Revenant":5,"Saryn":10,"Sevagoth":10,"Styanax":10,"Temple":10,"Titania":10,"Valkyr":10,"Volt":10,"Voruna":10,"Wukong":10,"Xaku":10,"Yareli":10,"Zephyr":5}'>Damage</label><br>
+      <label><input type="radio" name="primrole" value="tank" data-warframe-points='{"Baruuk":10,"Caliban":10,"Chroma":10,"Frost":5,"Gara":10,"Gauss":5,"Grendel":10,"Inaros":10,"Koumei":5,"Nezha":5,"Nidus":10,"Octavia":5,"Qorvex":10,"Revenant":10,"Rhino":10,"Sevagoth":5,"Valkyr":5,"Wukong":5}'>Survival</label><br>
+      <label><input type="radio" name="primrole" value="support" data-warframe-points='{"Citrine":10,"Dante":10,"Equinox":10,"Harrow":10,"Jade":10,"Oberon":10,"Octavia":10,"Protea":5,"Temple":5,"Trinity":10,"Wisp":10}'>Support</label><br>
+      <label><input type="radio" name="primrole" value="control" data-warframe-points='{"Banshee":10,"Baruuk":5,"Caliban":5,"Frost":10,"Gyre":10,"Hydroid":10,"Khora":10,"Limbo":10,"Mag":10,"Nekros":10,"Nezha":5,"Nidus":5,"Nova":10,"Nyx":10,"Qorvex":5,"Rhino":5,"Titania":5,"Vauban":10,"Zephyr":10}'>Crowd Control</label><br>
+      <label><input type="radio" name="primrole" value="stealth" data-warframe-points='{"Ash":10,"Cyte-09":5,"Ivara":10,"Loki":10,"Voruna":5}'>Stealth</label><br>
+    </div>
+    <div class="question">
+      <p>Secondary Playstyle?</p>
+      <label><input type="radio" name="secrole" value="damage" data-warframe-points='{"Atlas":5,"Chroma":10,"Cyte-09":5,"Dagath":5,"Dante":10,"Ember":5,"Excalibur":5,"Gara":10,"Garuda":5,"Gauss":5,"Hildryn":5,"Khora":10,"Koumei":5,"Kullervo":5,"Lavos":5,"Mesa":5,"Mirage":5,"Nezha":5,"Nidus":10,"Nova":10,"Protea":5,"Revenant":10,"Saryn":5,"Sevagoth":5,"Styanax":5,"Temple":5,"Titania":5,"Valkyr":5,"Volt":5,"Voruna":5,"Wukong":5,"Xaku":5,"Yareli":5,"Zephyr":10}'>Damage</label><br>
+      <label><input type="radio" name="secrole" value="tank" data-warframe-points='{"Baruuk":5,"Caliban":5,"Chroma":5,"Frost":10,"Gara":5,"Gauss":10,"Grendel":5,"Inaros":5,"Koumei":10,"Nezha":10,"Nidus":5,"Octavia":10,"Qorvex":5,"Revenant":5,"Rhino":5,"Sevagoth":10,"Valkyr":10,"Wukong":10}'>Survival</label><br>
+      <label><input type="radio" name="secrole" value="support" data-warframe-points='{"Citrine":5,"Dante":5,"Equinox":5,"Harrow":5,"Jade":5,"Oberon":5,"Octavia":5,"Protea":10,"Temple":10,"Trinity":5,"Wisp":5}'>Support</label><br>
+      <label><input type="radio" name="secrole" value="control" data-warframe-points='{"Banshee":5,"Baruuk":10,"Caliban":10,"Frost":5,"Gyre":5,"Hydroid":5,"Khora":5,"Limbo":5,"Mag":5,"Nekros":5,"Nezha":10,"Nidus":10,"Nova":5,"Nyx":5,"Qorvex":10,"Rhino":10,"Titania":10,"Vauban":5,"Zephyr":5}'>Crowd Control</label><br>
+      <label><input type="radio" name="secrole" value="stealth" data-warframe-points='{"Ash":5,"Cyte-09":10,"Ivara":5,"Loki":5,"Voruna":10}'>Stealth</label><br>
+    </div>
+    <div class="question">
+      <p>Complexity?</p>
+      <label><input type="radio" name="complexity" value="simple" data-warframe-points='{"Ash":5,"Atlas":5,"Banshee":5,"Ember":5,"Excalibur":5,"Frost":5,"Grendel":5,"Gyre":5,"Hildryn":5,"Hydroid":5,"Inaros":5,"Jade":5,"Kullervo":5,"Loki":5,"Mag":5,"Mesa":5,"Mirage":5,"Nekros":5,"Nezha":5,"Nidus":5,"Nyx":5,"Oberon":5,"Qorvex":5,"Revenant":5,"Rhino":5,"Styanax":5,"Titania":5,"Trinity":5,"Valkyr":5,"Wukong":5,"Yareli":5,"Zephyr":5}'>Simple, casual-friendly</label><br>
+      <label><input type="radio" name="complexity" value="moderate" data-warframe-points='{"Caliban":5,"Citrine":5,"Cyte-09":5,"Dagath":5,"Dante":5,"Gara":5,"Garuda":5,"Gauss":5,"Harrow":5,"Ivara":5,"Khora":5,"Koumei":5,"Nova":5,"Octavia":5,"Saryn":5,"Temple":5,"Vauban":5,"Wisp":5}'>Moderate, requires some testing</label><br>
+      <label><input type="radio" name="complexity" value="complex" data-warframe-points='{"Baruuk":5,"Chroma":5,"Equinox":5,"Lavos":5,"Limbo":5,"Protea":5,"Sevagoth":5,"Voruna":5,"Xaku":5}'>Complex, requires heavy testing</label><br>
+    </div>
+    <div class="question">
+      <p>Ability casting frequency?</p>
+      <label><input type="radio" name="casting" value="light" data-warframe-points='{"Banshee":5,"Cyte-09":5,"Excalibur":5,"Garuda":5,"Grendel":5,"Hildryn":5,"Inaros":5,"Ivara":5,"Loki":5,"Mirage":5,"Nyx":5,"Oberon":5,"Revenant":5,"Rhino":5,"Styanax":5,"Trinity":5,"Valkyr":5,"Volt":5,"Wukong":5,"Yareli":5}'>Light, occasional casting</label><br>
+      <label><input type="radio" name="casting" value="medium" data-warframe-points='{"Atlas":5,"Baruuk":5,"Chroma":5,"Citrine":5,"Equinox":5,"Frost":5,"Gyre":5,"Hydroid":5,"Jade":5,"Khora":5,"Mag":5,"Mesa":5,"Nekros":5,"Nezha":5,"Nidus":5,"Nova":5,"Qorvex":5,"Saryn":5,"Voruna":5,"Wisp":5,"Zephyr":5}'>Moderate, frequent casting</label><br>
+      <label><input type="radio" name="casting" value="heavy" data-warframe-points='{"Ash":5,"Caliban":5,"Dagath":5,"Dante":5,"Ember":5,"Gara":5,"Gauss":5,"Harrow":5,"Koumei":5,"Kullervo":5,"Lavos":5,"Limbo":5,"Octavia":5,"Protea":5,"Sevagoth":5,"Temple":5,"Titania":5,"Vauban":5,"Xaku":5}'>Heavy, constant casting</label><br>
+    </div>
+    <button type="submit">Find Your New Main!</button>
+  </form>
+  <div id="result"></div>
+</div>
+
+<script>
+  document.getElementById('warframeQuiz').addEventListener('submit', function(event) {
+    event.preventDefault();
+  
+    // Initialize scores for all Warframes
+    let warframeScores = {
+      "Ash": 5,
+      "Atlas": 5,
+      "Banshee": 5,
+      "Baruuk": 5,
+      "Caliban": 5,
+      "Chroma": 5,
+      "Citrine": 5,
+      "Cyte-09": 5,
+      "Dagath": 5,
+      "Dante": 5,
+      "Ember": 5,
+      "Equinox": 5,
+      "Excalibur": 5,
+      "Frost": 5,
+      "Gara": 5,
+      "Garuda": 5,
+      "Gauss": 5,
+      "Grendel": 5,
+      "Gyre": 5,
+      "Harrow": 5,
+      "Hildryn": 5,
+      "Hydroid": 5,
+      "Inaros": 5,
+      "Ivara": 5,
+      "Jade": 5,
+      "Khora": 5,
+      "Koumei": 5,
+      "Kullervo": 5,
+      "Lavos": 5,
+      "Limbo": 5,
+      "Loki": 5,
+      "Mag": 5,
+      "Mesa": 5,
+      "Mirage": 5,
+      "Nekros": 5,
+      "Nezha": 5,
+      "Nidus": 5,
+      "Nova": 5,
+      "Nyx": 5,
+      "Oberon": 5,
+      "Octavia": 5,
+      "Protea": 5,
+      "Qorvex": 5,
+      "Revenant": 5,
+      "Rhino": 5,
+      "Saryn": 5,
+      "Sevagoth": 5,
+      "Styanax": 5,
+      "Temple": 5,
+      "Titania": 5,
+      "Trinity": 5,
+      "Valkyr": 5,
+      "Vauban": 5,
+      "Volt": 5,
+      "Voruna": 5,
+      "Wisp": 5,
+      "Wukong": 5,
+      "Xaku": 5,
+      "Yareli": 5,
+      "Zephyr": 5
+    };
+  
+    // Loop through each question
+    const questions = document.querySelectorAll('.question');
+    questions.forEach(question => {
+      // Find the selected radio button for the current question
+      const selectedAnswer = question.querySelector('input[type="radio"]:checked');
+      if (selectedAnswer) {
+        // Parse the Warframe points from the selected answer
+        const warframePoints = JSON.parse(selectedAnswer.dataset.warframePoints);
+        for (const warframe in warframePoints) {
+          warframeScores[warframe] += warframePoints[warframe];
+        }
+      }
+    });
+  
+    // Determine the Warframe(s) with the highest score
+    let topScore = 0;
+    let topWarframes = [];
+    for (const warframe in warframeScores) {
+      if (warframeScores[warframe] > topScore) {
+        topScore = warframeScores[warframe];
+        topWarframes = [warframe];
+      } else if (warframeScores[warframe] === topScore) {
+        topWarframes.push(warframe);
+      }
+    }
+  
+    // Display the result
+    let resultText = "Your Recommended Warframe is: ";
+    if (topWarframes.length > 1) {
+      resultText += topWarframes.join(" or ");
+    } else {
+      resultText += topWarframes[0];
+    }
+    document.getElementById('result').innerText = resultText;
+  });
+  </script>
+</body>
+</html>

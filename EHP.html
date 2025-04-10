@@ -1,0 +1,132 @@
+<table>
+  <tr>
+    <th>Stat</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Health</td>
+    <td><input type="number" id="health1" /></td>
+  </tr>
+  <tr>
+    <td>Shield</td>
+    <td><input type="number" id="shield1" /></td>
+  </tr>
+  <tr>
+    <td>Armor</td>
+    <td><input type="number" id="armor1" /></td>
+  </tr>
+  <tr>
+    <td>Armor Reduction</td>
+    <td id="armorReduction1">0%</td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+  </tr>
+  <tr>
+    <td>Effective Health</td>
+    <td id="effectiveHealth1">0</td>
+  </tr>
+  <tr id="adaptationRow1" style="display: none;">
+    <td>Adaptation</td>
+    <td id="adaptation1">0</td>
+  </tr>
+</table>
+
+<button onclick="calculateEffectiveHealth1()">Calculate</button>
+
+<input type="checkbox" id="adaptationCheckbox" />
+<label for="adaptationCheckbox">Adaptation</label>
+
+<input type="checkbox" id="compareCheckbox" />
+<label for="compareCheckbox">Compare</label>
+
+<br>
+<br>
+
+<div id="compareTable" style="display: none;">
+  <table>
+    <tr>
+      <th>Stat</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>Health</td>
+      <td><input type="number" id="health2" /></td>
+    </tr>
+    <tr>
+      <td>Shield</td>
+      <td><input type="number" id="shield2" /></td>
+    </tr>
+    <tr>
+      <td>Armor</td>
+      <td><input type="number" id="armor2" /></td>
+    </tr>
+    <tr>
+      <td>Armor Reduction</td>
+      <td id="armorReduction2">0%</td>
+    </tr>
+    <tr>
+      <td colspan="2"></td>
+    </tr>
+    <tr>
+      <td>Effective Health</td>
+      <td id="effectiveHealth2">0</td>
+    </tr>
+    <tr id="adaptationRow2" style="display: none;">
+      <td>Adaptation</td>
+      <td id="adaptation2">0</td>
+    </tr>
+  </table>
+  <button onclick="calculateEffectiveHealth2()">Calculate</button>
+</div>
+
+<script>
+  function calculateEffectiveHealth1() {
+    const health = parseFloat(document.getElementById('health1').value);
+    const shield = parseFloat(document.getElementById('shield1').value);
+    const armor = parseFloat(document.getElementById('armor1').value);
+
+    const armorReduction = armor / (armor + 300);
+    document.getElementById('armorReduction1').innerText = (armorReduction * 100).toFixed(2) + "%"; // Display as percentage
+
+    let effectiveHealth = (health / (1 - armorReduction)) + (shield / (1 - 0.50));
+    document.getElementById('effectiveHealth1').innerText = effectiveHealth.toLocaleString(); // Add commas
+
+    if (document.getElementById('adaptationCheckbox').checked) {
+      const adaptation = effectiveHealth / (1 - 0.90);
+      document.getElementById('adaptation1').innerText = adaptation.toLocaleString(); // Add commas
+      document.getElementById('adaptationRow1').style.display = 'table-row';
+    } else {
+      document.getElementById('adaptationRow1').style.display = 'none';
+    }
+  }
+
+  function calculateEffectiveHealth2() {
+    const health = parseFloat(document.getElementById('health2').value);
+    const shield = parseFloat(document.getElementById('shield2').value);
+    const armor = parseFloat(document.getElementById('armor2').value);
+
+    const armorReduction = armor / (armor + 300);
+    document.getElementById('armorReduction2').innerText = (armorReduction * 100).toFixed(2) + "%"; // Display as percentage
+
+    let effectiveHealth = (health / (1 - armorReduction)) + (shield / (1 - 0.50));
+    document.getElementById('effectiveHealth2').innerText = effectiveHealth.toLocaleString(); // Add commas
+
+    if (document.getElementById('adaptationCheckbox').checked) {
+      const adaptation = effectiveHealth / (1 - 0.90);
+      document.getElementById('adaptation2').innerText = adaptation.toLocaleString(); // Add commas
+      document.getElementById('adaptationRow2').style.display = 'table-row';
+    } else {
+      document.getElementById('adaptationRow2').style.display = 'none';
+    }
+  }
+
+  document.getElementById('compareCheckbox').addEventListener('change', function() {
+    if (this.checked) {
+      document.getElementById('compareTable').style.display = 'block';
+    } else {
+      document.getElementById('compareTable').style.display = 'none';
+    }
+  });
+</script>
+
