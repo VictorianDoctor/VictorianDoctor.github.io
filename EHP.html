@@ -1,49 +1,48 @@
-<table>
-  <tr>
-    <th>Stat</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Health</td>
-    <td><input type="number" id="health1" /></td>
-  </tr>
-  <tr>
-    <td>Shield</td>
-    <td><input type="number" id="shield1" /></td>
-  </tr>
-  <tr>
-    <td>Armor</td>
-    <td><input type="number" id="armor1" /></td>
-  </tr>
-  <tr>
-    <td>Armor Reduction</td>
-    <td id="armorReduction1">0%</td>
-  </tr>
-  <tr>
-    <td colspan="2"></td>
-  </tr>
-  <tr>
-    <td>Effective Health</td>
-    <td id="effectiveHealth1">0</td>
-  </tr>
-  <tr id="adaptationRow1" style="display: none;">
-    <td>Adaptation</td>
-    <td id="adaptation1">0</td>
-  </tr>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Effective Hp Calculator</title>
+    <meta content="Midnight Cure Apothecary" property="og:title" />
+    <meta content="Welcome to Midnight Cure Apothecary!" property="og:description" />
+    <meta content="index.html" property="og:url" />
+    <meta content="logo.png" property="og:image" />
+    <meta content="#ccc7b3" data-react-helmet="true" name="theme-color" />
+<style>
+body {
+    background-image: url('Background/uI8IGgoQdzu1NUPKco0U--3--2ecqj.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li> <a href="index.html" class="menu-item">Home</a></li>
+      <li> <a href="about.html" class="menu-item">About</a></li>
+      <li> <a href="athyes.html" class="menu-item">About the Author</a></li>
+    </ul>
+    </div>
+    <div class="banner">
+        <div class="logo">
+            <img src="logo.png" alt="Logo" class="logo-img">
+            <h1 class="site-name">Midnight Cure</h1>
+        </div>
+        <div class="button-container">
+            <button onclick="toggleSidebar()" style="color: white; background-color: transparent;">≡</button>
+        </div>
+    </div>
+    <div class="header-container">
+    </div>
 
-<button onclick="calculateEffectiveHealth1()">Calculate</button>
-
-<input type="checkbox" id="adaptationCheckbox" />
-<label for="adaptationCheckbox">Adaptation</label>
-
-<input type="checkbox" id="compareCheckbox" />
-<label for="compareCheckbox">Compare</label>
-
-<br>
-<br>
-
-<div id="compareTable" style="display: none;">
+<div class="container">
+  <header class="header">
+    <h1>Effective HP Calculator</h1>
+  </header>
   <table>
     <tr>
       <th>Stat</th>
@@ -51,33 +50,100 @@
     </tr>
     <tr>
       <td>Health</td>
-      <td><input type="number" id="health2" /></td>
+      <td><input type="number" id="health1" /></td>
     </tr>
     <tr>
       <td>Shield</td>
-      <td><input type="number" id="shield2" /></td>
+      <td><input type="number" id="shield1" /></td>
     </tr>
     <tr>
       <td>Armor</td>
-      <td><input type="number" id="armor2" /></td>
+      <td><input type="number" id="armor1" /></td>
     </tr>
     <tr>
       <td>Armor Reduction</td>
-      <td id="armorReduction2">0%</td>
+      <td id="armorReduction1">0%</td>
     </tr>
     <tr>
       <td colspan="2"></td>
     </tr>
     <tr>
       <td>Effective Health</td>
-      <td id="effectiveHealth2">0</td>
+      <td id="effectiveHealth1">0</td>
     </tr>
-    <tr id="adaptationRow2" style="display: none;">
+    <tr id="adaptationRow1" style="display: none;">
       <td>Adaptation</td>
-      <td id="adaptation2">0</td>
+      <td id="adaptation1">0</td>
     </tr>
   </table>
-  <button onclick="calculateEffectiveHealth2()">Calculate</button>
+
+  <button onclick="calculateEffectiveHealth1()">Calculate</button>
+
+  <input type="checkbox" id="adaptationCheckbox" />
+  <label for="adaptationCheckbox">Adaptation</label>
+
+  <input type="checkbox" id="compareCheckbox" />
+  <label for="compareCheckbox">Compare</label>
+
+  <!-- Second Calculator (Hidden by Default) -->
+  <div id="compareTable" style="display: none; margin-top: 20px;">
+    <h2>Comparison Calculator</h2>
+    <table>
+      <tr>
+        <th>Stat</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Health</td>
+        <td><input type="number" id="health2" /></td>
+      </tr>
+      <tr>
+        <td>Shield</td>
+        <td><input type="number" id="shield2" /></td>
+      </tr>
+      <tr>
+        <td>Armor</td>
+        <td><input type="number" id="armor2" /></td>
+      </tr>
+      <tr>
+        <td>Armor Reduction</td>
+        <td id="armorReduction2">0%</td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td>Effective Health</td>
+        <td id="effectiveHealth2">0</td>
+      </tr>
+      <tr id="adaptationRow2" style="display: none;">
+        <td>Adaptation</td>
+        <td id="adaptation2">0</td>
+      </tr>
+    </table>
+
+    <button onclick="calculateEffectiveHealth2()">Calculate</button>
+  </div>
+
+<footer class="footer">
+  <script src="https://giscus.app/client.js"
+      data-repo="VictorianDoctor/VictorianDoctor.github.io"
+      data-repo-id="R_kgDOLozQqQ"
+      data-category="General"
+      data-category-id="DIC_kwDOLozQqc4Cee70"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async>
+  </script>
+  &copy; 2024 Midnight Cure Apothecary
+</footer>
 </div>
 
 <script>
@@ -122,11 +188,24 @@
   }
 
   document.getElementById('compareCheckbox').addEventListener('change', function() {
-    if (this.checked) {
-      document.getElementById('compareTable').style.display = 'block';
-    } else {
-      document.getElementById('compareTable').style.display = 'none';
-    }
-  });
-</script>
+  const compareTable = document.getElementById('compareTable');
+  if (this.checked) {
+    compareTable.style.display = 'block'; // Show the second calculator
+  } else {
+    compareTable.style.display = 'none'; // Hide the second calculator
+  }
+});
 
+  function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// Dyslexic Font Toggle Functionality
+document.getElementById('toggleFont').addEventListener('click', function() {
+    const contentElement = document.querySelector('.content');
+    contentElement.classList.toggle('dyslexic-font');
+});
+</script>
+</body>
+</html>

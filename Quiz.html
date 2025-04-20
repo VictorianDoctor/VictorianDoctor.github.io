@@ -1,57 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>What Warframe Should You Main?</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>What Warframe should YOU main?</title>
+    <meta content="Midnight Cure Apothecary" property="og:title" />
+    <meta content="Welcome to Midnight Cure Apothecary!" property="og:description" />
+    <meta content="index.html" property="og:url" />
+    <meta content="logo.png" property="og:image" />
+    <meta content="#ccc7b3" data-react-helmet="true" name="theme-color" />
 <style>
 body {
-  font-family: sans-serif;
-  background-color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 5vh;
-}
-
-.container {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-h1 {
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.question {
-  margin-bottom: 20px;
-}
-
-.question p {
-  margin-bottom: 10px;
-}
-
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#result {
-  margin-top: 20px;
-  font-size: 1.2em;
-  font-weight: bold;
+    background-image: url('Background/uI8IGgoQdzu1NUPKco0U--3--2ecqj.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 </style>
 </head>
 <body>
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li> <a href="index.html" class="menu-item">Home</a></li>
+      <li> <a href="about.html" class="menu-item">About</a></li>
+      <li> <a href="athyes.html" class="menu-item">About the Author</a></li>
+    </ul>
+    </div>
+    <div class="banner">
+        <div class="logo">
+            <img src="logo.png" alt="Logo" class="logo-img">
+            <h1 class="site-name">Midnight Cure</h1>
+        </div>
+        <div class="button-container">
+            <button onclick="toggleSidebar()" style="color: white; background-color: transparent;">≡</button>
+        </div>
+    </div>
+    <div class="header-container">
+    </div>
+
 <div class="container">
-  <h1>What Warframe Should You Main?</h1>
+
+  <header class="header">
+    <h1>What Warframe Should You Main?</h1>
   <form id="warframeQuiz">
     <div class="question">
       <p>Preferred Primary Playstyle?</p>
@@ -84,6 +75,27 @@ button {
     <button type="submit">Find Your New Main!</button>
   </form>
   <div id="result"></div>
+</div>
+
+<footer class="footer">
+  <script src="https://giscus.app/client.js"
+      data-repo="VictorianDoctor/VictorianDoctor.github.io"
+      data-repo-id="R_kgDOLozQqQ"
+      data-category="General"
+      data-category-id="DIC_kwDOLozQqc4Cee70"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async>
+  </script>
+  &copy; 2024 Midnight Cure Apothecary
+</footer>
 </div>
 
 <script>
@@ -189,6 +201,17 @@ button {
     }
     document.getElementById('result').innerText = resultText;
   });
-  </script>
+
+  function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// Dyslexic Font Toggle Functionality
+document.getElementById('toggleFont').addEventListener('click', function() {
+    const contentElement = document.querySelector('.content');
+    contentElement.classList.toggle('dyslexic-font');
+});
+</script>
 </body>
 </html>
