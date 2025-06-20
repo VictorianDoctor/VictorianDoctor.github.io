@@ -118,6 +118,25 @@ body {
     border-radius: 5px;
     z-index: 100;
 }
+.socials {
+    text-align: center;
+    margin: 20px 0;
+}
+.socials a {
+    color: #B7410E;
+    margin: 0 15px;
+    font-size: 28px;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, color 0.2s;
+}
+.socials a:hover {
+    color: #883000; /* Discord blurple, or change as needed */
+    transform: scale(1.2);
+}
+.bsky-icon svg {
+    vertical-align: middle;
+}
 @media only screen and (max-width: 767px) {
     body {
         font-size: 12px;
