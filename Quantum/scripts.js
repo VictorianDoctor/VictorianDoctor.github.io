@@ -30,7 +30,7 @@ bandpass.frequency.value = 1000;
 bandpass.Q.value = 1;
 
 const distortion = audioContext.createWaveShaper();
-distortion.curve = makeDistortionCurve(300);
+distortion.curve = makeDistortionCurve(100);
 distortion.oversample = '4x';
 
 const musicGain = audioContext.createGain();
