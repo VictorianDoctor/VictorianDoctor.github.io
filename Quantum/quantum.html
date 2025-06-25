@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantum Radio</title>
+  <script defer src="scripts.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .radio-container {
+      background: radial-gradient(circle at top left, #333, #111);
+      border: 6px solid #444;
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+
+    .radio-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #ff5555;
+      text-shadow: 0 0 5px #ff2222;
+    }
+
+    .dial:after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 20px;
+      background: #ff5555;
+      top: 10px;
+      left: 28px;
+    }
+
+    #volumeSlider {
+      width: 80%;
+      margin: 1rem 0;
+    }
+
+    #audio-player {
+      display: none;
+    }
+
+    .led {
+      width: 14px;
+      height: 14px;
+      background: red;
+      border-radius: 50%;
+      margin: 0.5rem auto;
+      box-shadow: 0 0 8px red;
+    }
+
+    .power-switch {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .power-button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #ff5555;
+      background: #111;
+      color: #ff5555;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff5555;
+      transition: all 0.2s ease;
+    }
+
+    .power-button:active {
+      transform: scale(0.95);
+      box-shadow: 0 0 5px #ff5555;
+    }
+  </style>
+</head>
+<body>
+  <div class="radio-container">
+    <div class="radio-title">📻 Quantum Radio</div>
+    <div class="led" id="power-led"></div>
+    <div class="dial"></div>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    <div id="now-playing" style="margin-top: 1rem; font-size: 1rem; color: #ff9999;"></div>
+    <label for="volumeSlider">Music Volume</label>
+    <div class="power-switch">
+      <span>Power</span>
+      <button class="power-button" id="powerButton">⏻</button>
+    </div>
+    <audio id="audio-player" controls></audio>
+  </div>
+  <script>
+    const powerButton = document.getElementById('powerButton');
+    const powerLed = document.getElementById('power-led');
+    let isPoweredOn = false;
+
+    powerButton.addEventListener('click', () => {
+      isPoweredOn = !isPoweredOn;
+      if (isPoweredOn) {
+        powerLed.style.background = 'green';
+        powerLed.style.boxShadow = '0 0 8px green';
+        if (typeof powerOn === 'function') {
+          powerOn();
+        }
+      } else {
+        powerLed.style.background = 'red';
+        powerLed.style.boxShadow = '0 0 8px red';
+        if (typeof powerOff === 'function') {
+          powerOff();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
