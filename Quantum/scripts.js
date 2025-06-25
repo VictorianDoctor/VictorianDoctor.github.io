@@ -139,6 +139,8 @@ function playIntroduction() {
   bandpass.disconnect();
   distortion.disconnect();
   musicGain.disconnect();
+  voiceDistortion.disconnect();
+  voiceGain.disconnect();
   voiceDistortion.connect(voiceGain);
   voiceGain.connect(audioContext.destination);
   audioElement.play();
