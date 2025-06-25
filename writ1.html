@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>For The Queens! (Warframe Inspired Creative Writing)</title>
+<style>
+body {
+    font-family: myFirstFont !important;
+    background-image: url('Background/lKfKMt0hEyZjT8nP1Q23--1--3ny8x.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li> <a href="index.html" class="menu-item">Home</a></li>
+            <li> <a href="about.html" class="menu-item">About</a></li>
+            <li> <a href="athyes.html" class="menu-item">About the Author</a></li>
+        </ul>
+        </div>
+    <div class="banner">
+        <div class="logo">
+            <img src="logo.png" alt="Logo" class="logo-img">
+            <h1 class="site-name">Midnight Cure</h1>
+        </div>
+        <div class="button-container">
+            <button id="toggleFont" style="margin: 5px; padding: 5px; color: white; background-color: transparent;">Toggle Font</button>
+            <button onclick="toggleSidebar()" style="color: white; background-color: transparent;">≡</button>
+        </div>
+    </div>
+    <div class="header-container">
+    </div>
+
+    <div class="container">
+        
+<header class="header">
+    <h1>For The Queens!</h1>
+</header>
+        
+<div class="content">
+    <p>Your fellow Brothers and Sisters were ordered to build a ship-killer platform because of a nearby corpus outpost. Their ships may have been bigger and more advanced, but any ship can be taken down with enough artillery. </p>
+    <p>Today, however, you drew the short stick: You get put on crew ship duty. It's much less work, but that's the issue: It's boring. As you sit below deck, taking inventory, you hear a shout from one of your Brothers... It's the Tenno.</p>
+    <p>You grab your Grakata and run to help your Brothers. The Tenno was powerful, but they couldn't take you all, Right?</p>
+    <p>But as you reach the top of the stairs, you finally hear it: The Alarms, They destroyed the reactor. Looking around, you also see the bodies of your Brother's and Sister's around you: They didn't stand a chance.</p>
+    <p>You had one chance. But in the end, you know it wouldn't have made a difference. Plus, you finally realize something. It all meant nothing, your entire life: Everything you've done. You will just get replaced by clones and crossed off a list. You shed a tear then and mutter your final words: "For the Queens." The words mean nothing anymore, but it's all you've ever known. You then sigh your final breath.</p>
+</div>
+
+<footer class="footer">
+    <script src="https://giscus.app/client.js"
+        data-repo="VictorianDoctor/VictorianDoctor.github.io"
+        data-repo-id="R_kgDOLozQqQ"
+        data-category="General"
+        data-category-id="DIC_kwDOLozQqc4Cee70"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+    </script>
+    &copy; 2024 Midnight Cure Apothecary
+</footer>
+</div>
+
+<script>
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// Dyslexic Font Toggle Functionality
+document.getElementById('toggleFont').addEventListener('click', function() {
+    const contentElement = document.querySelector('.content');
+    contentElement.classList.toggle('dyslexic-font');
+});
+</script>
+</body>
+</html>
