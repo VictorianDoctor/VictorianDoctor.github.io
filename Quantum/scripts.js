@@ -37,7 +37,7 @@ const musicGain = audioContext.createGain();
 musicGain.gain.value = parseFloat(volumeSlider.value);
 
 const staticGain = audioContext.createGain();
-staticGain.gain.value = 0.0035; // 0.35% volume
+staticGain.gain.value = 0.0035; // .35% volume
 
 const staticNoise = createWhiteNoise(audioContext);
 staticNoise.connect(staticGain);
@@ -46,7 +46,7 @@ staticNoise.start(); // Start static once
 
 const voiceDistortion = audioContext.createWaveShaper();
 voiceDistortion.curve = makeDistortionCurve(50);
-voiceDistortion.oversample = '2x';
+voiceDistortion.oversample = '4x';
 
 const voiceGain = audioContext.createGain();
 voiceGain.gain.value = parseFloat(volumeSlider.value);
@@ -90,21 +90,28 @@ function playHostLine(song) {
     const nextLine = getRandomItem(lines);
     updateNowPlaying(`Host: ${nextLine}`);
     audioElement.src = hostFolder + nextLine;
-audioElement.onended = playNext;
-distortion.disconnect();
-musicGain.disconnect();
-voiceDistortion.connect(voiceGain);
-voiceGain.connect(audioContext.destination);
-audioElement.play();
+    audioElement.onended = playNext;
+    distortion.disconnect();
+    musicGain.disconnect();
+    voiceDistortion.connect(voiceGain);
+    voiceGain.connect(audioContext.destination);
+    audioElement.play();
   } else {
+    setTimeout(() => {
     playNext();
+    }, 100);
   }
 }
 
 function playNext() {
   let nextSource;
   if (currentSongCount < 2) {
-    nextSource = getRandomItem(songs.filter(song => !playedSongs.includes(song)));
+    let unplayedSongs = songs.filter(song => !playedSongs.includes(song));
+    if (unplayedSongs.length === 0) {
+      playedSongs = [];
+      unplayedSongs = [...songs];
+    }
+    nextSource = getRandomItem(unplayedSongs);
     lastSongPlayed = nextSource;
     playedSongs.push(nextSource);
     currentSongCount++;
