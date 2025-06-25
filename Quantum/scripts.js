@@ -7,9 +7,9 @@ const songs = Array.from({ length: 261 }, (_, i) => `song${i + 1}.mp3`);
 const ads = Array.from({ length: 125 }, (_, i) => `ad${i + 1}.mp3`);
 
 const songVoiceLines = {
-  'song1.mp3': ['host_line1.mp3', 'host_line2.mp3'],
-  'song2.mp3': ['host_line3.mp3'],
-  'song3.mp3': ['host_line4.mp3', 'host_line5.mp3'],
+  'song.mp3': ['host_line1.mp3', 'host_line2.mp3'],
+  'song.mp3': ['host_line3.mp3'],
+  'song.mp3': ['host_line4.mp3', 'host_line5.mp3'],
 };
 
 let currentSongCount = 0;
@@ -37,12 +37,12 @@ const musicGain = audioContext.createGain();
 musicGain.gain.value = parseFloat(volumeSlider.value);
 
 const staticGain = audioContext.createGain();
-staticGain.gain.value = 0.0035; // .35% volume
+staticGain.gain.value = 0.0035;
 
 const staticNoise = createWhiteNoise(audioContext);
 staticNoise.connect(staticGain);
 staticGain.connect(audioContext.destination);
-staticNoise.start(); // Start static once
+staticNoise.start();
 
 const voiceDistortion = audioContext.createWaveShaper();
 voiceDistortion.curve = makeDistortionCurve(25);
@@ -62,13 +62,15 @@ musicGain.connect(audioContext.destination);
 splitter.connect(voiceDistortion);
 voiceDistortion.connect(voiceGain);
 voiceGain.connect(audioContext.destination);
-musicGain.connect(audioContext.destination);
 
 volumeSlider.addEventListener('input', () => {
-  musicGain.gain.value = parseFloat(volumeSlider.value);
+  const volume = parseFloat(volumeSlider.value);
+  musicGain.gain.value = volume;
+  voiceGain.gain.value = volume;
 });
 
 audioElement.addEventListener('ended', playNext);
+
 window.addEventListener('click', () => {
   if (audioContext.state === 'suspended') {
     audioContext.resume();
@@ -76,10 +78,6 @@ window.addEventListener('click', () => {
 });
 
 function getRandomItem(array) {
-  if (array.length === 0) {
-    playedSongs = [];
-    return getRandomItem(songs);
-  }
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
 }
@@ -91,6 +89,7 @@ function playHostLine(song) {
     updateNowPlaying(`Host: ${nextLine}`);
     audioElement.src = hostFolder + nextLine;
     audioElement.onended = playNext;
+    bandpass.disconnect();
     distortion.disconnect();
     musicGain.disconnect();
     voiceDistortion.connect(voiceGain);
@@ -98,7 +97,7 @@ function playHostLine(song) {
     audioElement.play();
   } else {
     setTimeout(() => {
-    playNext();
+      playNext();
     }, 100);
   }
 }
@@ -117,36 +116,32 @@ function playNext() {
     currentSongCount++;
     updateNowPlaying(`Now Playing: ${nextSource}`);
     audioElement.src = songsFolder + nextSource;
-audioElement.onended = () => playHostLine(nextSource);
-voiceDistortion.disconnect();
-voiceGain.disconnect();
-bandpass.connect(distortion);
-distortion.connect(musicGain);
-musicGain.connect(audioContext.destination);
+    audioElement.onended = () => playHostLine(nextSource);
   } else {
     nextSource = getRandomItem(ads);
     currentSongCount = 0;
     updateNowPlaying(`Ad: ${nextSource}`);
     audioElement.src = adsFolder + nextSource;
-audioElement.onended = playNext;
-voiceDistortion.disconnect();
-voiceGain.disconnect();
-bandpass.connect(distortion);
-distortion.connect(musicGain);
-musicGain.connect(audioContext.destination);
+    audioElement.onended = playNext;
   }
+  voiceDistortion.disconnect();
+  voiceGain.disconnect();
+  bandpass.connect(distortion);
+  distortion.connect(musicGain);
+  musicGain.connect(audioContext.destination);
   audioElement.play();
 }
 
 function playIntroduction() {
   updateNowPlaying('Welcome to Quantum Radio');
   audioElement.src = introFile;
-audioElement.onended = playNext;
-distortion.disconnect();
-musicGain.disconnect();
-voiceDistortion.connect(voiceGain);
-voiceGain.connect(audioContext.destination);
-audioElement.play();
+  audioElement.onended = playNext;
+  bandpass.disconnect();
+  distortion.disconnect();
+  musicGain.disconnect();
+  voiceDistortion.connect(voiceGain);
+  voiceGain.connect(audioContext.destination);
+  audioElement.play();
 }
 
 function updateNowPlaying(text) {
@@ -190,13 +185,13 @@ function initializeRadio() {
 
 function powerOn() {
   audioContext.resume().then(() => {
-    staticGain.gain.value = 0.0035; // unmute static
+    staticGain.gain.value = 0.0035;
     initializeRadio();
   });
 }
 
 function powerOff() {
   audioElement.pause();
-  staticGain.gain.value = 0; // mute static
+  staticGain.gain.value = 0;
   updateNowPlaying('');
 }
