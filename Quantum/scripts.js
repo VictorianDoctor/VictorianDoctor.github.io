@@ -46,7 +46,7 @@ staticNoise.start(); // Start static once
 
 const voiceDistortion = audioContext.createWaveShaper();
 voiceDistortion.curve = makeDistortionCurve(50);
-voiceDistortion.oversample = '4x';
+voiceDistortion.oversample = '2x';
 
 const voiceGain = audioContext.createGain();
 voiceGain.gain.value = parseFloat(volumeSlider.value);
