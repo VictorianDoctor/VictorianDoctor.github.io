@@ -9,7 +9,7 @@
   <style>
     body {
       background-color: #121212;
-      color: #e0e0e0;
+      color: #f8ca05;
       font-family: 'Orbitron', sans-serif;
       display: flex;
       flex-direction: column;
@@ -20,11 +20,11 @@
     }
 
     .radio-container {
-      background: radial-gradient(circle at top left, #333, #111);
-      border: 6px solid #444;
+      background: radial-gradient(circle at top left, #9458a8, #4c0c54);
+      border: 6px solid #f45e1d;
       border-radius: 24px;
       padding: 2rem;
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+      box-shadow: 0 0 20px rgba(51,255,255);
       max-width: 500px;
       width: 100%;
       text-align: center;
@@ -34,8 +34,8 @@
     .radio-title {
       font-size: 2rem;
       margin-bottom: 1rem;
-      color: #ff5555;
-      text-shadow: 0 0 5px #ff2222;
+      color: #33ffff;
+      text-shadow: 0 0 5px #11bbdd;
     }
 
     .dial:after {
@@ -43,7 +43,7 @@
       position: absolute;
       width: 4px;
       height: 20px;
-      background: #ff5555;
+      background: #33ffff;
       top: 10px;
       left: 28px;
     }
@@ -79,18 +79,18 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      border: 2px solid #ff5555;
+      border: 2px solid #33ffff;
       background: #111;
-      color: #ff5555;
+      color: #33ffff;
       font-size: 1.2rem;
       cursor: pointer;
-      box-shadow: 0 0 10px #ff5555;
+      box-shadow: 0 0 10px #33ffff;
       transition: all 0.2s ease;
     }
 
     .power-button:active {
       transform: scale(0.95);
-      box-shadow: 0 0 5px #ff5555;
+      box-shadow: 0 0 5px #33ffff;
     }
   </style>
 </head>
@@ -100,7 +100,7 @@
     <div class="led" id="power-led"></div>
     <div class="dial"></div>
     <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
-    <div id="now-playing" style="margin-top: 1rem; font-size: 1rem; color: #ff9999;"></div>
+    <div id="now-playing" style="margin-top: 1rem; font-size: 1rem; color: #fac90a;"></div>
     <label for="volumeSlider">Music Volume</label>
     <div class="power-switch">
       <span>Power</span>
