@@ -37,7 +37,7 @@ const musicGain = audioContext.createGain();
 musicGain.gain.value = parseFloat(volumeSlider.value);
 
 const staticGain = audioContext.createGain();
-staticGain.gain.value = 0.02; // 2% volume
+staticGain.gain.value = 0.0035; // 2% volume
 
 const staticNoise = createWhiteNoise(audioContext);
 staticNoise.connect(staticGain);
@@ -150,7 +150,7 @@ function initializeRadio() {
 
 function powerOn() {
   audioContext.resume().then(() => {
-    staticGain.gain.value = 0.02; // unmute static
+    staticGain.gain.value = 0.0035; // unmute static
     initializeRadio();
   });
 }
