@@ -44,9 +44,24 @@ staticNoise.connect(staticGain);
 staticGain.connect(audioContext.destination);
 staticNoise.start(); // Start static once
 
-sourceNode.connect(bandpass);
+const voiceDistortion = audioContext.createWaveShaper();
+voiceDistortion.curve = makeDistortionCurve(50);
+voiceDistortion.oversample = '4x';
+
+const voiceGain = audioContext.createGain();
+voiceGain.gain.value = parseFloat(volumeSlider.value);
+
+const splitter = audioContext.createGain();
+sourceNode.connect(splitter);
+
+splitter.connect(bandpass);
 bandpass.connect(distortion);
 distortion.connect(musicGain);
+musicGain.connect(audioContext.destination);
+
+splitter.connect(voiceDistortion);
+voiceDistortion.connect(voiceGain);
+voiceGain.connect(audioContext.destination);
 musicGain.connect(audioContext.destination);
 
 volumeSlider.addEventListener('input', () => {
@@ -75,8 +90,12 @@ function playHostLine(song) {
     const nextLine = getRandomItem(lines);
     updateNowPlaying(`Host: ${nextLine}`);
     audioElement.src = hostFolder + nextLine;
-    audioElement.onended = playNext;
-    audioElement.play();
+audioElement.onended = playNext;
+distortion.disconnect();
+musicGain.disconnect();
+voiceDistortion.connect(voiceGain);
+voiceGain.connect(audioContext.destination);
+audioElement.play();
   } else {
     playNext();
   }
@@ -91,13 +110,23 @@ function playNext() {
     currentSongCount++;
     updateNowPlaying(`Now Playing: ${nextSource}`);
     audioElement.src = songsFolder + nextSource;
-    audioElement.onended = () => playHostLine(nextSource);
+audioElement.onended = () => playHostLine(nextSource);
+voiceDistortion.disconnect();
+voiceGain.disconnect();
+bandpass.connect(distortion);
+distortion.connect(musicGain);
+musicGain.connect(audioContext.destination);
   } else {
     nextSource = getRandomItem(ads);
     currentSongCount = 0;
     updateNowPlaying(`Ad: ${nextSource}`);
     audioElement.src = adsFolder + nextSource;
-    audioElement.onended = playNext;
+audioElement.onended = playNext;
+voiceDistortion.disconnect();
+voiceGain.disconnect();
+bandpass.connect(distortion);
+distortion.connect(musicGain);
+musicGain.connect(audioContext.destination);
   }
   audioElement.play();
 }
@@ -105,8 +134,12 @@ function playNext() {
 function playIntroduction() {
   updateNowPlaying('Welcome to Quantum Radio');
   audioElement.src = introFile;
-  audioElement.onended = playNext;
-  audioElement.play();
+audioElement.onended = playNext;
+distortion.disconnect();
+musicGain.disconnect();
+voiceDistortion.connect(voiceGain);
+voiceGain.connect(audioContext.destination);
+audioElement.play();
 }
 
 function updateNowPlaying(text) {
