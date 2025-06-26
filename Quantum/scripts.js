@@ -10,13 +10,13 @@ const plays = Array.from({ length: 41 }, (_, i) => `play${i + 1}.mp3`);
 
 const preVoiceLines = {
   'song216.mp3': ['pre_host1.mp3'],
-  'song105.mp3': ['pre_host2.mp3', 'pre_host3.mp3']
+  'song.mp3': ['pre_host2.mp3', 'pre_host3.mp3']
 };
 
 const postVoiceLines = {
   'song105.mp3': ['host1.mp3'],
-  'song216.mp3': ['host2.mp3'],
-  'song217.mp3': ['host3.mp3', 'host4.mp3']
+  'song.mp3': ['host2.mp3'],
+  'song.mp3': ['host3.mp3', 'host4.mp3']
 };
 
 let currentSongCount = 0;
