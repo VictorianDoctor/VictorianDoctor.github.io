@@ -1,20 +1,32 @@
 const songsFolder = 'Songs/';
 const adsFolder = 'Ads/';
+const playsFolder = 'Plays/';
 const hostFolder = 'VoiceLines/';
 const introFile = 'intro.mp3';
 
 const songs = Array.from({ length: 261 }, (_, i) => `song${i + 1}.mp3`);
-const ads = Array.from({ length: 125 }, (_, i) => `ad${i + 1}.mp3`);
+const ads = Array.from({ length: 146 }, (_, i) => `ad${i + 1}.mp3`);
+const plays = Array.from({ length: 41 }, (_, i) => `play${i + 1}.mp3`);
 
-const songVoiceLines = {
-  'song.mp3': ['host_line1.mp3', 'host_line2.mp3'],
-  'song.mp3': ['host_line3.mp3'],
-  'song.mp3': ['host_line4.mp3', 'host_line5.mp3'],
+const preVoiceLines = {
+  'song216.mp3': ['pre_host1.mp3'],
+  'song105.mp3': ['pre_host2.mp3', 'pre_host3.mp3']
+};
+
+const postVoiceLines = {
+  'song105.mp3': ['host1.mp3'],
+  'song216.mp3': ['host2.mp3'],
+  'song217.mp3': ['host3.mp3', 'host4.mp3']
 };
 
 let currentSongCount = 0;
 let lastSongPlayed = '';
 let playedSongs = [];
+let songTitles = {};
+
+fetch('song_titles.json')
+  .then(res => res.json())
+  .then(data => songTitles = data);
 
 const audioElement = document.getElementById('audio-player');
 const volumeSlider = document.getElementById('volumeSlider');
@@ -82,23 +94,23 @@ function getRandomItem(array) {
   return array[randomIndex];
 }
 
-function playHostLine(song) {
-  const lines = songVoiceLines[song] || [];
+function playVoiceLine(song, beforeSong = true, callback = playNext) {
+  const lines = beforeSong ? preVoiceLines[song] || [] : postVoiceLines[song] || [];
   if (lines.length > 0) {
     const nextLine = getRandomItem(lines);
     updateNowPlaying(`Host: ${nextLine}`);
     audioElement.src = hostFolder + nextLine;
-    audioElement.onended = playNext;
+    audioElement.onended = callback;
     bandpass.disconnect();
     distortion.disconnect();
     musicGain.disconnect();
+    voiceDistortion.disconnect();
+    voiceGain.disconnect();
     voiceDistortion.connect(voiceGain);
     voiceGain.connect(audioContext.destination);
     audioElement.play();
   } else {
-    setTimeout(() => {
-      playNext();
-    }, 100);
+    setTimeout(callback, 100);
   }
 }
 
@@ -114,22 +126,35 @@ function playNext() {
     lastSongPlayed = nextSource;
     playedSongs.push(nextSource);
     currentSongCount++;
-    updateNowPlaying(`Now Playing: ${nextSource}`);
+    const displayTitle = songTitles[nextSource] || nextSource;
+    updateNowPlaying(`Now Playing: ${displayTitle}`);
     audioElement.src = songsFolder + nextSource;
-    audioElement.onended = () => playHostLine(nextSource);
+    audioElement.onended = () => playVoiceLine(nextSource, false);
+    voiceDistortion.disconnect();
+    voiceGain.disconnect();
+    bandpass.connect(distortion);
+    distortion.connect(musicGain);
+    musicGain.connect(audioContext.destination);
+    playVoiceLine(nextSource, true, () => audioElement.play());
   } else {
-    nextSource = getRandomItem(ads);
+    if (Math.random() < 0.2) {
+      nextSource = getRandomItem(plays);
+      updateNowPlaying(`Radio Play: ${nextSource}`);
+      audioElement.src = playsFolder + nextSource;
+    } else {
+      nextSource = getRandomItem(ads);
+      updateNowPlaying(`Ad: ${nextSource}`);
+      audioElement.src = adsFolder + nextSource;
+    }
     currentSongCount = 0;
-    updateNowPlaying(`Ad: ${nextSource}`);
-    audioElement.src = adsFolder + nextSource;
     audioElement.onended = playNext;
+    voiceDistortion.disconnect();
+    voiceGain.disconnect();
+    bandpass.connect(distortion);
+    distortion.connect(musicGain);
+    musicGain.connect(audioContext.destination);
+    audioElement.play();
   }
-  voiceDistortion.disconnect();
-  voiceGain.disconnect();
-  bandpass.connect(distortion);
-  distortion.connect(musicGain);
-  musicGain.connect(audioContext.destination);
-  audioElement.play();
 }
 
 function playIntroduction() {
