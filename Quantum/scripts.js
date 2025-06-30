@@ -212,16 +212,22 @@ function initializeRadio() {
 }
 
 function powerOn() {
+  if (radioOn) return; // Prevent multiple calls to powerOn
+  radioOn = true;
+
   audioContext.resume().then(() => {
-    staticGain.gain.value = 0.0035;
-    initializeRadio();
+    staticGain.gain.value = 0.0035; // Enable static noise
+    initializeRadio(); // Start the introduction
   });
 }
 
 function powerOff() {
-  audioElement.pause();
-  staticGain.gain.value = 0;
-  updateNowPlaying('');
+  if (!radioOn) return; // Prevent multiple calls to powerOff
+  radioOn = false;
+
+  audioElement.pause(); // Stop any playing audio
+  staticGain.gain.value = 0; // Mute static noise
+  updateNowPlaying(''); // Clear the "Now Playing" display
 }
 
 function toggleRadio() {
