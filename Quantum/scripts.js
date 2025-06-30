@@ -10,15 +10,13 @@ const plays = Array.from({ length: 41 }, (_, i) => `play${i + 1}.mp3`);
 
 const preVoiceLines = {
   'song216.mp3': ['pre_host1.mp3'],
-  'song.mp3': ['pre_host2.mp3', 'pre_host3.mp3']
 };
 
 const postVoiceLines = {
   'song105.mp3': ['host1.mp3'],
-  'song.mp3': ['host2.mp3'],
-  'song.mp3': ['host3.mp3', 'host4.mp3']
 };
 
+let radioOn = false;
 let currentSongCount = 0;
 let lastSongPlayed = '';
 let playedSongs = [];
@@ -115,6 +113,8 @@ function playVoiceLine(song, beforeSong = true, callback = playNext) {
 }
 
 function playNext() {
+  if (!radioOn) return; // Do nothing if the radio is off
+
   let nextSource;
   if (currentSongCount < 2) {
     let unplayedSongs = songs.filter(song => !playedSongs.includes(song));
@@ -158,6 +158,7 @@ function playNext() {
 }
 
 function playIntroduction() {
+  if (!radioOn) return;
   updateNowPlaying('Welcome to Quantum Radio');
   audioElement.src = introFile;
   audioElement.onended = playNext;
@@ -221,4 +222,14 @@ function powerOff() {
   audioElement.pause();
   staticGain.gain.value = 0;
   updateNowPlaying('');
+}
+
+function toggleRadio() {
+  if (radioOn) {
+    powerOff();
+    radioOn = false;
+  } else {
+    powerOn();
+    radioOn = true;
+  }
 }
