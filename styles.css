@@ -23,30 +23,30 @@ body {
     font-weight: 400;
 }
 .banner {
-    background-color: #3B2A2A; /* Background color of the banner */
+    background-color: #3B2A2A;
     font-family: HeaderFont;
-    color: #fff; /* Text color of the banner */
-    padding: 10px; /* Padding around the content */
-    display: flex; /* Flexbox for layout */
-    justify-content: space-between; /* Distribute items evenly */
-    align-items: center; /* Center items vertically */
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: fit-content;
-    width: 100%; /* Full width banner */
-    position: fixed; /* Fixed position at the top */
-    top: 0; /* Stick to the top */
-    z-index: 10; /* Ensure it's above other content */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 10;
 }
 .logo {
-    display: flex; /* Flexbox for layout */
-    align-items: center; /* Center items vertically */
+    display: flex;
+    align-items: center;
 }
 .logo-img {
-    width: 50px; /* Adjust size as needed */
-    height: 50px; /* Adjust size as needed */
-    margin-right: 10px; /* Spacing between logo and text */
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
 }
 .site-name {
-    margin: 0; /* Remove margin */
+    margin: 0;
 }
 .button-container {
     position: fixed;
@@ -63,12 +63,12 @@ body {
     border-radius: 10px;
     opacity: 0.9;
     position: fixed;
-    right: -200px; /* Change left to right */
-    transition: right 0.3s ease-in-out; /* Update transition property */
+    right: -200px;
+    transition: right 0.3s ease-in-out;
     z-index: 11;
 }
 .sidebar.open {
-    right: 0; /* Change left to right */
+    right: 0;
 }
 .menu-item {
     padding: 5px;
@@ -80,6 +80,7 @@ body {
 }
 .container {
     max-width: 1200px;
+    width: 90%;
     margin: 0 auto;
     margin-top: 5%;
     padding: 20px;
@@ -131,7 +132,7 @@ body {
     transition: transform 0.2s, color 0.2s;
 }
 .socials a:hover {
-    color: #883000; /* Discord blurple, or change as needed */
+    color: #883000;
     transform: scale(1.2);
 }
 .bsky-icon svg {
@@ -139,18 +140,26 @@ body {
 }
 @media only screen and (max-width: 767px) {
     body {
-        font-size: 12px;
-    }
-    .post-title {
         font-size: 14px;
     }
+    .post-title {
+        font-size: 1.2rem;
+    }
     .container {
-        max-width: 80%;
-        margin-top: 15%;
+        width: 95%;
+        max-width: 95%;
+        margin-top: 20%;
         padding: 10px;
     }
+    .banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
     .sidebar {
-        margin-top: 10%;
+        margin-top: 15%;
+    }
+    .button-container {
+        padding: 5px;
     }
 }
 .noDecoration, a:link, a:visited {
