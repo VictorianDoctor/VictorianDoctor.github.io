@@ -6,7 +6,12 @@
     font-family: BodyFont;
     src: url(Fonts/Caslon.ttf);
 }
+html, body {
+    height: 100%;
+}
 body {
+    display: flex;
+    flex-direction: column;
     font-family: BodyFont;
     font-size: 21px;
     font-weight: 400;
@@ -79,6 +84,7 @@ body {
     margin-bottom: 10px;
 }
 .container {
+    flex: 1;
     max-width: 1200px;
     width: 90%;
     margin: 0 auto;
@@ -99,7 +105,7 @@ body {
 .footer {
     font-family: HeaderFont;
     text-align: center;
-    margin-top: 20px;
+    margin-top: auto;
 }
 .post {
     margin-bottom: 20px;
