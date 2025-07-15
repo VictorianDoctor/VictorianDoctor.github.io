@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Effective Hp Calculator</title>
+    <meta content="Midnight Cure Apothecary" property="og:title" />
+    <meta content="Welcome to Midnight Cure Apothecary!" property="og:description" />
+    <meta content="index.html" property="og:url" />
+    <meta content="logo.png" property="og:image" />
+    <meta content="#ccc7b3" data-react-helmet="true" name="theme-color" />
+<style>
+body {
+    background-image: url('Background/uI8IGgoQdzu1NUPKco0U--3--2ecqj.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li> <a href="index.html" class="menu-item">Home</a></li>
+      <li> <a href="about.html" class="menu-item">About</a></li>
+      <li> <a href="athyes.html" class="menu-item">About the Author</a></li>
+    </ul>
+    </div>
+    <div class="banner">
+        <div class="logo">
+            <img src="logo.png" alt="Logo" class="logo-img">
+            <h1 class="site-name">Midnight Cure</h1>
+        </div>
+        <div class="button-container">
+            <button onclick="toggleSidebar()" style="color: white; background-color: transparent;">≡</button>
+        </div>
+    </div>
+    <div class="header-container">
+    </div>
+
+  <div class="container">
+    <header class="header">
+      <h1>Effective DPS Calculator</h1>
+    </header>
+    <table>
+      <tr>
+        <th>Stat</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Fire Rate</td>
+        <td><input type="number" id="fireRate" step="0.01" value="0.00" /></td>
+      </tr>
+      <tr>
+        <td>Multishot</td>
+        <td><input type="number" id="multishot" step="0.01" value="0.00" /></td>
+      </tr>
+      <tr>
+        <td>Crit Chance (%)</td>
+        <td><input type="number" id="critChance" step="0.01" value="0.00" /></td>
+      </tr>
+      <tr>
+        <td>Crit Damage</td>
+        <td><input type="number" id="critDamage" step="0.01" value="0.00" /></td>
+      </tr>
+      <tr>
+        <td>Stat Chance (%)</td>
+        <td><input type="number" id="statChance" step="0.01" value="0.00" /></td>
+      </tr>
+      <tr>
+        <td>Damage</td>
+        <td><input type="number" id="damage" step="0.01" value="0.00" /></td>
+      </tr>
+    </table>
+    <button onclick="calculateDPS()">Calculate DPS</button>
+    <button onclick="clearHistory()">Clear History</button>
+    <div>
+      <span class="output" id="effDps">Eff. DPS: —</span>
+      <span class="output" id="critsPs">Crits p/s: —</span>
+      <span class="output" id="statsPs">Stats p/s: —</span>
+    </div>
+    <table id="historyTable" style="display: none;">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fire Rate</th>
+          <th>Multishot</th>
+          <th>Crit %</th>
+          <th>Crit Dmg</th>
+          <th>Stat %</th>
+          <th>Damage</th>
+          <th>DPS</th>
+          <th>Crits p/s</th>
+          <th>Stats p/s</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+<footer class="footer">
+  <script src="https://giscus.app/client.js"
+      data-repo="VictorianDoctor/VictorianDoctor.github.io"
+      data-repo-id="R_kgDOLozQqQ"
+      data-category="General"
+      data-category-id="DIC_kwDOLozQqc4Cee70"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async>
+  </script>
+  &copy; 2025 Midnight Cure Apothecary
+</footer>
+</div>
+
+  <script>
+    let historyCount = 0;
+
+    function calculateDPS() {
+      const fireRate = parseFloat(document.getElementById("fireRate").value);
+      const multishot = parseFloat(document.getElementById("multishot").value);
+      const critChance = parseFloat(document.getElementById("critChance").value) / 100;
+      const critDamage = parseFloat(document.getElementById("critDamage").value);
+      const statChance = parseFloat(document.getElementById("statChance").value) / 100;
+      const damage = parseFloat(document.getElementById("damage").value);
+
+      const baseHit = damage / multishot;
+      const averageHit = (1 - critChance) * baseHit + critChance * baseHit * critDamage;
+      const dps = averageHit * multishot * fireRate;
+      const critsPerSecond = fireRate * multishot * critChance;
+      const statsPerSecond = fireRate * multishot * statChance;
+
+      document.getElementById("effDps").textContent = `Eff. DPS: ${dps.toLocaleString(undefined, {maximumFractionDigits: 2})}`;
+      document.getElementById("critsPs").textContent = `Crits p/s: ${critsPerSecond.toFixed(2)}`;
+      document.getElementById("statsPs").textContent = `Stats p/s: ${statsPerSecond.toFixed(2)}`;
+
+      // Add to history
+      const table = document.getElementById("historyTable");
+      const row = table.querySelector("tbody").insertRow();
+      table.style.display = "table";
+      historyCount++;
+
+      row.innerHTML = `
+        <td>${historyCount}</td>
+        <td>${fireRate.toFixed(2)}</td>
+        <td>${multishot.toFixed(2)}</td>
+        <td>${(critChance * 100).toFixed(1)}%</td>
+        <td>${critDamage.toFixed(2)}</td>
+        <td>${(statChance * 100).toFixed(1)}%</td>
+        <td>${damage.toFixed(2)}</td>
+        <td>${dps.toLocaleString(undefined, {maximumFractionDigits: 2})}</td>
+        <td>${critsPerSecond.toFixed(2)}</td>
+        <td>${statsPerSecond.toFixed(2)}</td>
+      `;
+    }
+
+    function clearHistory() {
+      document.querySelector("#historyTable tbody").innerHTML = "";
+      document.getElementById("historyTable").style.display = "none";
+      historyCount = 0;
+    }
+
+  function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// Dyslexic Font Toggle Functionality
+document.getElementById('toggleFont').addEventListener('click', function() {
+    const contentElement = document.querySelector('.content');
+    contentElement.classList.toggle('dyslexic-font');
+});
+</script>
+</body>
+</html>
