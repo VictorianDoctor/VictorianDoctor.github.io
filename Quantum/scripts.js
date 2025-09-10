@@ -56,7 +56,7 @@ staticNoise.start();
 
 const voiceDistortion = audioContext.createWaveShaper();
 voiceDistortion.curve = makeDistortionCurve(25);
-voiceDistortion.oversample = '1x';
+voiceDistortion.oversample = 'none';
 
 const voiceGain = audioContext.createGain();
 voiceGain.gain.value = parseFloat(volumeSlider.value);
@@ -277,25 +277,15 @@ function sendSyncUpdate(song, time) {
   }
 }
 
-function syncPlayback(data) {
-  // Set song and playback position
-  audioElement.src = songsFolder + data.song;
-  audioElement.currentTime = data.time;
-  audioElement.play();
-  updateNowPlaying(`Now Playing: ${songTitles[data.song] || data.song} (Synced)`);
+function safePlay() {
+  if (audioElement.readyState >= 2 && !audioElement.paused) return;
+  audioElement.play().catch(() => {});
 }
 
-// Example: Call sendSyncUpdate when song changes
-audioElement.addEventListener('play', () => {
-  if (syncEnabled) {
-    sendSyncUpdate(lastSongPlayed, audioElement.currentTime);
-  }
-});
-
-document.getElementById('syncConnectBtn').addEventListener('click', () => {
-  const code = document.getElementById('syncCodeInput').value.trim();
-  if (code) {
-    connectToSyncSession(code);
-    updateNowPlaying(`Syncing with code: ${code}`);
-  }
-});
+// Replace audioElement.play() with safePlay() in syncPlayback and playVoiceLine
+function syncPlayback(data) {
+  audioElement.src = songsFolder + data.song;
+  audioElement.currentTime = data.time;
+  safePlay();
+  updateNowPlaying(`Now Playing: ${songTitles[data.song] || data.song} (Synced)`);
+}
