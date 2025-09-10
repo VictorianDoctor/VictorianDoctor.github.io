@@ -217,22 +217,46 @@ function initializeRadio() {
 }
 
 function powerOn() {
-  if (radioOn) return; // Prevent multiple calls to powerOn
+  if (radioOn) return;
   radioOn = true;
-
   audioContext.resume().then(() => {
-    staticGain.gain.value = 0.0035; // Enable static noise
-    initializeRadio(); // Start the introduction
+    staticGain.gain.value = 0.0035;
+    initializeRadio();
+    // LED green for playing
+    const powerLed = document.getElementById('power-led');
+    if (powerLed) {
+      powerLed.style.background = 'limegreen';
+      powerLed.style.boxShadow = '0 0 8px limegreen';
+    }
+    // Restore power button
+    const powerButton = document.getElementById('powerButton');
+    if (powerButton) {
+      powerButton.textContent = '⏻';
+      powerButton.style.background = '#8a3687';
+      powerButton.style.color = '#33ffff';
+      powerButton.title = 'Power';
+    }
   });
 }
 
 function powerOff() {
-  if (!radioOn) return; // Prevent multiple calls to powerOff
+  updateNowPlaying('');
   radioOn = false;
-
-  audioElement.pause(); // Stop any playing audio
-  staticGain.gain.value = 0; // Mute static noise
-  updateNowPlaying(''); // Clear the "Now Playing" display
+  staticGain.gain.value = 0;
+  // LED red for off
+  const powerLed = document.getElementById('power-led');
+  if (powerLed) {
+    powerLed.style.background = 'red';
+    powerLed.style.boxShadow = '0 0 8px red';
+  }
+  // Restore power button
+  const powerButton = document.getElementById('powerButton');
+  if (powerButton) {
+    powerButton.textContent = '⏻';
+    powerButton.style.background = '#8a3687';
+    powerButton.style.color = '#33ffff';
+    powerButton.title = 'Power';
+  }
 }
 
 function toggleRadio() {
@@ -302,13 +326,25 @@ document.getElementById('syncConnectBtn').addEventListener('click', () => {
   if (code) {
     connectToSyncSession(code);
     updateNowPlaying(`Syncing with code: ${code}`);
-    // Enable radio but do not start playback
     if (!radioOn) {
       radioOn = true;
       audioContext.resume().then(() => {
-        staticGain.gain.value = 0.0035; // Enable static noise
+        staticGain.gain.value = 0.0035;
       });
+      // LED yellow for synced
+      const powerLed = document.getElementById('power-led');
+      if (powerLed) {
+        powerLed.style.background = 'yellow';
+        powerLed.style.boxShadow = '0 0 8px yellow';
+      }
+      // Power button becomes "Start"
+      const powerButton = document.getElementById('powerButton');
+      if (powerButton) {
+        powerButton.textContent = '▶';
+        powerButton.style.background = '#ffe066';
+        powerButton.style.color = '#4c0c54';
+        powerButton.title = 'Start Synced Playback';
+      }
     }
-    // Do NOT call initializeRadio() here
   }
 });
