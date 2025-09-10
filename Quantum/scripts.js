@@ -126,10 +126,19 @@ function playVoiceLine(song, beforeSong = true, callback = playNext) {
   }
 }
 
+function isImmersiveMode() {
+  const immersive = document.getElementById('immersiveMode');
+  return immersive && immersive.checked;
+}
+
+function isFalloutMode() {
+  const fallout = document.getElementById('falloutMode');
+  return fallout && fallout.checked;
+}
+
+// Example filter for Fallout Mode (songs, ads, plays)
 function getFilteredList(list, type) {
-  const falloutMode = document.getElementById('falloutMode');
-  if (falloutMode && falloutMode.checked) {
-    // Filter items by genre "Fallout"
+  if (isFalloutMode()) {
     return list.filter(item => {
       const info = songTitles[item];
       return info && info.genre && info.genre.toLowerCase() === 'fallout';
@@ -138,6 +147,7 @@ function getFilteredList(list, type) {
   return list;
 }
 
+// Example usage in your playback logic:
 function playNext() {
   if (!radioOn) return;
 
@@ -189,6 +199,7 @@ function playNext() {
   }
 }
 
+// Example usage for Immersive Mode:
 function playIntroduction() {
   const immersiveMode = document.getElementById('immersiveMode');
   if (!radioOn) return;
