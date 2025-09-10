@@ -208,10 +208,11 @@ let initialized = false;
 function initializeRadio() {
   if (!initialized) {
     initialized = true;
-    if (!syncEnabled) {
-      playIntroduction();
+    if (syncEnabled) {
+      // Skip intro for synced sessions
+      playNext(); // Start directly with the first song
     } else {
-      playNext(); // Start directly with the first song if synced
+      playIntroduction(); // Play intro for non-synced sessions
     }
   }
 }
@@ -221,7 +222,7 @@ function powerOn() {
   radioOn = true;
   audioContext.resume().then(() => {
     staticGain.gain.value = 0.0035;
-    initializeRadio();
+    initializeRadio(); // This will skip intro if synced
     // LED green for playing
     const powerLed = document.getElementById('power-led');
     if (powerLed) {
