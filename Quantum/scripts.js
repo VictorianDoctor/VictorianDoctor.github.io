@@ -239,3 +239,63 @@ function toggleRadio() {
     radioOn = true;
   }
 }
+
+let syncEnabled = false;
+let syncCode = '';
+let ws; // WebSocket connection
+
+function connectToSyncSession(code) {
+  syncCode = code;
+  ws = new WebSocket('wss://your-sync-server.example.com'); // Replace with your server URL
+
+  ws.onopen = () => {
+    ws.send(JSON.stringify({ action: 'join', code: syncCode }));
+    syncEnabled = true;
+  };
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    if (data.action === 'sync') {
+      // Sync playback
+      syncPlayback(data);
+    }
+  };
+
+  ws.onclose = () => {
+    syncEnabled = false;
+  };
+}
+
+function sendSyncUpdate(song, time) {
+  if (syncEnabled && ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({
+      action: 'sync',
+      code: syncCode,
+      song,
+      time
+    }));
+  }
+}
+
+function syncPlayback(data) {
+  // Set song and playback position
+  audioElement.src = songsFolder + data.song;
+  audioElement.currentTime = data.time;
+  audioElement.play();
+  updateNowPlaying(`Now Playing: ${songTitles[data.song] || data.song} (Synced)`);
+}
+
+// Example: Call sendSyncUpdate when song changes
+audioElement.addEventListener('play', () => {
+  if (syncEnabled) {
+    sendSyncUpdate(lastSongPlayed, audioElement.currentTime);
+  }
+});
+
+document.getElementById('syncConnectBtn').addEventListener('click', () => {
+  const code = document.getElementById('syncCodeInput').value.trim();
+  if (code) {
+    connectToSyncSession(code);
+    updateNowPlaying(`Syncing with code: ${code}`);
+  }
+});
