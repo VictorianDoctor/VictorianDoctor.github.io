@@ -102,10 +102,18 @@ function getRandomItem(array) {
 
 function playVoiceLine(song, beforeSong = true, callback = playNext) {
   const immersiveMode = document.getElementById('immersiveMode');
+  const falloutMode = document.getElementById('falloutMode');
   if (immersiveMode && immersiveMode.checked) {
-    // Skip voicelines in immersive mode
     setTimeout(callback, 100);
     return;
+  }
+  // Fallout Mode: Only play voice lines for Fallout songs
+  if (falloutMode && falloutMode.checked) {
+    const info = songTitles[song];
+    if (!(info && info.genre && info.genre.toLowerCase() === 'fallout')) {
+      setTimeout(callback, 100);
+      return;
+    }
   }
   const lines = beforeSong ? preVoiceLines[song] || [] : postVoiceLines[song] || [];
   if (lines.length > 0) {
@@ -138,19 +146,26 @@ function isFalloutMode() {
 
 // Example filter for Fallout Mode (songs, ads, plays)
 function getFilteredList(list, type) {
-  if (isFalloutMode()) {
-    return list.filter(item => {
-      const info = songTitles[item];
-      return info && info.genre && info.genre.toLowerCase() === 'fallout';
-    });
+  const immersiveMode = document.getElementById('immersiveMode');
+  const falloutMode = document.getElementById('falloutMode');
+  if (falloutMode && falloutMode.checked) {
+    if (type === 'song') {
+      // Only Fallout genre songs
+      return list.filter(item => {
+        const info = songTitles[item];
+        return info && info.genre && info.genre.toLowerCase() === 'fallout';
+      });
+    }
+    // For ads and plays, return all
+    return list;
   }
+  // If immersive mode only, return all
   return list;
 }
 
 // Example usage in your playback logic:
 function playNext() {
   if (!radioOn) return;
-
   let nextSource;
   if (currentSongCount < 2) {
     let unplayedSongs = getFilteredList(songs.filter(song => !playedSongs.includes(song)), 'song');
@@ -162,7 +177,7 @@ function playNext() {
     lastSongPlayed = nextSource;
     playedSongs.push(nextSource);
     currentSongCount++;
-    const displayTitle = songTitles[nextSource] || nextSource;
+    const displayTitle = songTitles[nextSource] ? songTitles[nextSource].title : nextSource;
     updateNowPlaying(`Now Playing: ${displayTitle}`);
     audioElement.src = songsFolder + nextSource;
     audioElement.onended = () => playVoiceLine(nextSource, false);
@@ -173,29 +188,27 @@ function playNext() {
     musicGain.connect(audioContext.destination);
     playVoiceLine(nextSource, true, () => {
       audioElement.play().catch(() => {});
-      if (isHost) sendSyncUpdate(nextSource, 0);
     });
   } else {
     if (Math.random() < 0.2) {
-      let falloutPlays = getFilteredList(plays, 'play');
-      nextSource = getRandomItem(falloutPlays);
+      let playList = getFilteredList(plays, 'play');
+      nextSource = getRandomItem(playList);
       updateNowPlaying(`Radio Play: ${nextSource}`);
       audioElement.src = playsFolder + nextSource;
     } else {
-      let falloutAds = getFilteredList(ads, 'ad');
-      nextSource = getRandomItem(falloutAds);
+      let adList = getFilteredList(ads, 'ad');
+      nextSource = getRandomItem(adList);
       updateNowPlaying(`Ad: ${nextSource}`);
       audioElement.src = adsFolder + nextSource;
     }
     currentSongCount = 0;
-    audioElement.onended = () => { if (isHost) playNext(); };
+    audioElement.onended = playNext;
     voiceDistortion.disconnect();
     voiceGain.disconnect();
     bandpass.connect(distortion);
     distortion.connect(musicGain);
     musicGain.connect(audioContext.destination);
     audioElement.play().catch(() => {});
-    if (isHost) sendSyncUpdate(nextSource, 0);
   }
 }
 
@@ -204,13 +217,12 @@ function playIntroduction() {
   const immersiveMode = document.getElementById('immersiveMode');
   if (!radioOn) return;
   if (immersiveMode && immersiveMode.checked) {
-    // Skip introduction in immersive mode
     playNext();
     return;
   }
   updateNowPlaying('Welcome to Quantum Radio');
   audioElement.src = introFile;
-  audioElement.onended = () => { if (isHost) playNext(); };
+  audioElement.onended = playNext;
   bandpass.disconnect();
   distortion.disconnect();
   musicGain.disconnect();
@@ -219,7 +231,6 @@ function playIntroduction() {
   voiceDistortion.connect(voiceGain);
   voiceGain.connect(audioContext.destination);
   audioElement.play().catch(() => {});
-  if (isHost) sendSyncUpdate(introFile, 0);
 }
 
 function updateNowPlaying(text) {
@@ -258,11 +269,7 @@ let initialized = false;
 function initializeRadio() {
   if (!initialized) {
     initialized = true;
-    if (syncEnabled) {
-      if (isHost) playNext();
-    } else {
-      playIntroduction();
-    }
+    playIntroduction();
   }
 }
 
