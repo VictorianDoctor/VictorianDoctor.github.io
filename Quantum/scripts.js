@@ -173,6 +173,7 @@ function playIntroduction() {
 }
 
 function updateNowPlaying(text) {
+  const nowPlayingDisplay = document.getElementById('now-playing');
   if (nowPlayingDisplay) {
     nowPlayingDisplay.textContent = text;
   }
@@ -207,7 +208,11 @@ let initialized = false;
 function initializeRadio() {
   if (!initialized) {
     initialized = true;
-    playIntroduction();
+    if (!syncEnabled) {
+      playIntroduction();
+    } else {
+      playNext(); // Start directly with the first song if synced
+    }
   }
 }
 
@@ -277,23 +282,33 @@ function sendSyncUpdate(song, time) {
   }
 }
 
-function safePlay() {
-  if (audioElement.readyState >= 2 && !audioElement.paused) return;
-  audioElement.play().catch(() => {});
-}
-
-// Replace audioElement.play() with safePlay() in syncPlayback and playVoiceLine
 function syncPlayback(data) {
+  // Set song and playback position
   audioElement.src = songsFolder + data.song;
   audioElement.currentTime = data.time;
-  safePlay();
+  audioElement.play();
   updateNowPlaying(`Now Playing: ${songTitles[data.song] || data.song} (Synced)`);
 }
+
+// Example: Call sendSyncUpdate when song changes
+audioElement.addEventListener('play', () => {
+  if (syncEnabled) {
+    sendSyncUpdate(lastSongPlayed, audioElement.currentTime);
+  }
+});
 
 document.getElementById('syncConnectBtn').addEventListener('click', () => {
   const code = document.getElementById('syncCodeInput').value.trim();
   if (code) {
     connectToSyncSession(code);
     updateNowPlaying(`Syncing with code: ${code}`);
+    // Enable radio but do not start playback
+    if (!radioOn) {
+      radioOn = true;
+      audioContext.resume().then(() => {
+        staticGain.gain.value = 0.0035; // Enable static noise
+      });
+    }
+    // Do NOT call initializeRadio() here
   }
 });
