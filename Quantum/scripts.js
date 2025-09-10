@@ -337,9 +337,21 @@ generateCodeBtn.addEventListener('click', () => {
   const code = generateSyncCode();
   syncCodeInput.value = code;
   isHost = true;
+  connectToSyncSession(code); // Host connects to sync session immediately
   updateNowPlaying(`Share this code: ${code}`);
+  const powerLed = document.getElementById('power-led');
+  if (powerLed) {
+    powerLed.style.background = 'yellow';
+    powerLed.style.boxShadow = '0 0 8px yellow';
+  }
   const powerButton = document.getElementById('powerButton');
-  if (powerButton) powerButton.style.display = '';
+  if (powerButton) {
+    powerButton.textContent = '▶';
+    powerButton.style.background = '#ffe066';
+    powerButton.style.color = '#4c0c54';
+    powerButton.title = 'Start Synced Playback';
+    powerButton.style.display = '';
+  }
 });
 
 syncConnectBtn.addEventListener('click', () => {
