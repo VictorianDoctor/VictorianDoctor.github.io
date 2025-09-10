@@ -26,6 +26,11 @@ fetch('song_titles.json')
   .then(res => res.json())
   .then(data => songTitles = data);
 
+let filterData = { ads: {}, plays: {} };
+fetch('filter.json')
+  .then(res => res.json())
+  .then(data => filterData = data);
+
 const audioElement = document.getElementById('audio-player');
 const volumeSlider = document.getElementById('volumeSlider');
 const nowPlayingDisplay = document.getElementById('now-playing');
@@ -146,7 +151,6 @@ function isFalloutMode() {
 
 // Example filter for Fallout Mode (songs, ads, plays)
 function getFilteredList(list, type) {
-  const immersiveMode = document.getElementById('immersiveMode');
   const falloutMode = document.getElementById('falloutMode');
   if (falloutMode && falloutMode.checked) {
     if (type === 'song') {
@@ -156,10 +160,21 @@ function getFilteredList(list, type) {
         return info && info.genre && info.genre.toLowerCase() === 'fallout';
       });
     }
-    // For ads and plays, return all
-    return list;
+    if (type === 'ad') {
+      // Only Fallout genre ads
+      return list.filter(item => {
+        const info = filterData.ads[item];
+        return info && info.genre && info.genre.toLowerCase() === 'fallout';
+      });
+    }
+    if (type === 'play') {
+      // Only Fallout genre plays
+      return list.filter(item => {
+        const info = filterData.plays[item];
+        return info && info.genre && info.genre.toLowerCase() === 'fallout';
+      });
+    }
   }
-  // If immersive mode only, return all
   return list;
 }
 
