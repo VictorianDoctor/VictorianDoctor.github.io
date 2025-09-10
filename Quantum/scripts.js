@@ -246,7 +246,7 @@ let ws; // WebSocket connection
 
 function connectToSyncSession(code) {
   syncCode = code;
-  ws = new WebSocket('wss://your-sync-server.example.com'); // Replace with your server URL
+  ws = new WebSocket('wss://24.208.219.63:4959');
 
   ws.onopen = () => {
     ws.send(JSON.stringify({ action: 'join', code: syncCode }));
