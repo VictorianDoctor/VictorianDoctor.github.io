@@ -289,3 +289,11 @@ function syncPlayback(data) {
   safePlay();
   updateNowPlaying(`Now Playing: ${songTitles[data.song] || data.song} (Synced)`);
 }
+
+document.getElementById('syncConnectBtn').addEventListener('click', () => {
+  const code = document.getElementById('syncCodeInput').value.trim();
+  if (code) {
+    connectToSyncSession(code);
+    updateNowPlaying(`Syncing with code: ${code}`);
+  }
+});
