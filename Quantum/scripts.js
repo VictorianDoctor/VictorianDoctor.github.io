@@ -89,6 +89,12 @@ window.addEventListener('click', () => {
   }
 });
 
+audioElement.addEventListener('play', () => {
+  if (audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+});
+
 function getRandomItem(array) {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
@@ -108,7 +114,7 @@ function playVoiceLine(song, beforeSong = true, callback = playNext) {
     voiceGain.disconnect();
     voiceDistortion.connect(voiceGain);
     voiceGain.connect(audioContext.destination);
-    audioElement.play();
+    audioElement.play().catch(() => {});
   } else {
     setTimeout(callback, 100);
   }
@@ -138,7 +144,7 @@ function playNext() {
     distortion.connect(musicGain);
     musicGain.connect(audioContext.destination);
     playVoiceLine(nextSource, true, () => {
-      audioElement.play();
+      audioElement.play().catch(() => {});
       if (isHost) sendSyncUpdate(nextSource, 0);
     });
   } else {
@@ -158,13 +164,18 @@ function playNext() {
     bandpass.connect(distortion);
     distortion.connect(musicGain);
     musicGain.connect(audioContext.destination);
-    audioElement.play();
+    audioElement.play().catch(() => {});
     if (isHost) sendSyncUpdate(nextSource, 0);
   }
 }
 
 function playIntroduction() {
   if (!radioOn) return;
+  if (syncEnabled) {
+    // Skip introduction when syncing
+    playNext();
+    return;
+  }
   updateNowPlaying('Welcome to Quantum Radio');
   audioElement.src = introFile;
   audioElement.onended = () => { if (isHost) playNext(); };
@@ -175,7 +186,7 @@ function playIntroduction() {
   voiceGain.disconnect();
   voiceDistortion.connect(voiceGain);
   voiceGain.connect(audioContext.destination);
-  audioElement.play();
+  audioElement.play().catch(() => {});
   if (isHost) sendSyncUpdate(introFile, 0);
 }
 
@@ -216,7 +227,7 @@ function initializeRadio() {
   if (!initialized) {
     initialized = true;
     if (syncEnabled) {
-      if (isHost) playIntroduction();
+      if (isHost) playNext();
     } else {
       playIntroduction();
     }
@@ -279,7 +290,7 @@ let isHost = false;
 
 function connectToSyncSession(code) {
   syncCode = code;
-  ws = new WebSocket('wss://24.208.219.63:4959');
+  ws = new WebSocket('ws://24.208.219.63:4959');
 
   ws.onopen = () => {
     ws.send(JSON.stringify({ action: 'join', code: syncCode }));
@@ -358,7 +369,7 @@ function syncPlayback(data) {
   if (!radioOn) powerOn();
   audioElement.src = songsFolder + data.song;
   audioElement.currentTime = data.time;
-  audioElement.play();
+  audioElement.play().catch(() => {});
   updateNowPlaying(`Now Playing: ${songTitles[data.song] || data.song} (Synced)`);
 }
 
