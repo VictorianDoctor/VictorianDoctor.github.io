@@ -101,6 +101,12 @@ function getRandomItem(array) {
 }
 
 function playVoiceLine(song, beforeSong = true, callback = playNext) {
+  const immersiveMode = document.getElementById('immersiveMode');
+  if (immersiveMode && immersiveMode.checked) {
+    // Skip voicelines in immersive mode
+    setTimeout(callback, 100);
+    return;
+  }
   const lines = beforeSong ? preVoiceLines[song] || [] : postVoiceLines[song] || [];
   if (lines.length > 0) {
     const nextLine = getRandomItem(lines);
@@ -120,15 +126,27 @@ function playVoiceLine(song, beforeSong = true, callback = playNext) {
   }
 }
 
+function getFilteredList(list, type) {
+  const falloutMode = document.getElementById('falloutMode');
+  if (falloutMode && falloutMode.checked) {
+    // Filter items by genre "Fallout"
+    return list.filter(item => {
+      const info = songTitles[item];
+      return info && info.genre && info.genre.toLowerCase() === 'fallout';
+    });
+  }
+  return list;
+}
+
 function playNext() {
   if (!radioOn) return;
 
   let nextSource;
   if (currentSongCount < 2) {
-    let unplayedSongs = songs.filter(song => !playedSongs.includes(song));
+    let unplayedSongs = getFilteredList(songs.filter(song => !playedSongs.includes(song)), 'song');
     if (unplayedSongs.length === 0) {
       playedSongs = [];
-      unplayedSongs = [...songs];
+      unplayedSongs = getFilteredList([...songs], 'song');
     }
     nextSource = getRandomItem(unplayedSongs);
     lastSongPlayed = nextSource;
@@ -149,11 +167,13 @@ function playNext() {
     });
   } else {
     if (Math.random() < 0.2) {
-      nextSource = getRandomItem(plays);
+      let falloutPlays = getFilteredList(plays, 'play');
+      nextSource = getRandomItem(falloutPlays);
       updateNowPlaying(`Radio Play: ${nextSource}`);
       audioElement.src = playsFolder + nextSource;
     } else {
-      nextSource = getRandomItem(ads);
+      let falloutAds = getFilteredList(ads, 'ad');
+      nextSource = getRandomItem(falloutAds);
       updateNowPlaying(`Ad: ${nextSource}`);
       audioElement.src = adsFolder + nextSource;
     }
@@ -170,9 +190,10 @@ function playNext() {
 }
 
 function playIntroduction() {
+  const immersiveMode = document.getElementById('immersiveMode');
   if (!radioOn) return;
-  if (syncEnabled) {
-    // Skip introduction when syncing
+  if (immersiveMode && immersiveMode.checked) {
+    // Skip introduction in immersive mode
     playNext();
     return;
   }
