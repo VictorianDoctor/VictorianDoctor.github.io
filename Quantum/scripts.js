@@ -326,25 +326,19 @@ document.getElementById('syncConnectBtn').addEventListener('click', () => {
   if (code) {
     connectToSyncSession(code);
     updateNowPlaying(`Syncing with code: ${code}`);
-    if (!radioOn) {
-      radioOn = true;
-      audioContext.resume().then(() => {
-        staticGain.gain.value = 0.0035;
-      });
-      // LED yellow for synced
-      const powerLed = document.getElementById('power-led');
-      if (powerLed) {
-        powerLed.style.background = 'yellow';
-        powerLed.style.boxShadow = '0 0 8px yellow';
-      }
-      // Power button becomes "Start"
-      const powerButton = document.getElementById('powerButton');
-      if (powerButton) {
-        powerButton.textContent = '▶';
-        powerButton.style.background = '#ffe066';
-        powerButton.style.color = '#4c0c54';
-        powerButton.title = 'Start Synced Playback';
-      }
+    // LED yellow for synced
+    const powerLed = document.getElementById('power-led');
+    if (powerLed) {
+      powerLed.style.background = 'yellow';
+      powerLed.style.boxShadow = '0 0 8px yellow';
+    }
+    // Power button becomes "Start"
+    const powerButton = document.getElementById('powerButton');
+    if (powerButton) {
+      powerButton.textContent = '▶';
+      powerButton.style.background = '#ffe066';
+      powerButton.style.color = '#4c0c54';
+      powerButton.title = 'Start Synced Playback';
     }
   }
 });
