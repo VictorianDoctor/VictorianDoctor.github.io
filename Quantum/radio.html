@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quantum Radio</title>
-  <script defer src="scripts.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -105,10 +104,12 @@
     </div>
     <div style="margin-top:1rem;">
       <input type="text" id="syncCodeInput" placeholder="Enter sync code" style="width:60%;padding:0.5rem;">
+      <button id="generateCodeBtn" style="padding:0.5rem 1rem; margin-left:0.5rem;">Generate Code</button>
       <button id="syncConnectBtn" style="padding:0.5rem 1rem;">Sync</button>
     </div>
     <audio id="audio-player" controls></audio>
   </div>
+  <script src="scripts.js"></script>
   <script>
     const powerButton = document.getElementById('powerButton');
     const powerLed = document.getElementById('power-led');
@@ -119,15 +120,11 @@
       if (isPoweredOn) {
         powerLed.style.background = 'green';
         powerLed.style.boxShadow = '0 0 8px green';
-        if (typeof powerOn === 'function') {
-          powerOn();
-        }
+        if (typeof powerOn === 'function') powerOn();
       } else {
         powerLed.style.background = 'red';
         powerLed.style.boxShadow = '0 0 8px red';
-        if (typeof powerOff === 'function') {
-          powerOff();
-        }
+        if (typeof powerOff === 'function') powerOff();
       }
     });
   </script>

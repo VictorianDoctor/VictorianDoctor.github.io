@@ -79,7 +79,9 @@ volumeSlider.addEventListener('input', () => {
   voiceGain.gain.value = volume;
 });
 
-audioElement.addEventListener('ended', playNext);
+audioElement.addEventListener('ended', () => {
+  if (isHost) playNext();
+});
 
 window.addEventListener('click', () => {
   if (audioContext.state === 'suspended') {
@@ -113,7 +115,7 @@ function playVoiceLine(song, beforeSong = true, callback = playNext) {
 }
 
 function playNext() {
-  if (!radioOn) return; // Do nothing if the radio is off
+  if (!radioOn) return;
 
   let nextSource;
   if (currentSongCount < 2) {
@@ -135,7 +137,10 @@ function playNext() {
     bandpass.connect(distortion);
     distortion.connect(musicGain);
     musicGain.connect(audioContext.destination);
-    playVoiceLine(nextSource, true, () => audioElement.play());
+    playVoiceLine(nextSource, true, () => {
+      audioElement.play();
+      if (isHost) sendSyncUpdate(nextSource, 0);
+    });
   } else {
     if (Math.random() < 0.2) {
       nextSource = getRandomItem(plays);
@@ -147,13 +152,14 @@ function playNext() {
       audioElement.src = adsFolder + nextSource;
     }
     currentSongCount = 0;
-    audioElement.onended = playNext;
+    audioElement.onended = () => { if (isHost) playNext(); };
     voiceDistortion.disconnect();
     voiceGain.disconnect();
     bandpass.connect(distortion);
     distortion.connect(musicGain);
     musicGain.connect(audioContext.destination);
     audioElement.play();
+    if (isHost) sendSyncUpdate(nextSource, 0);
   }
 }
 
@@ -161,7 +167,7 @@ function playIntroduction() {
   if (!radioOn) return;
   updateNowPlaying('Welcome to Quantum Radio');
   audioElement.src = introFile;
-  audioElement.onended = playNext;
+  audioElement.onended = () => { if (isHost) playNext(); };
   bandpass.disconnect();
   distortion.disconnect();
   musicGain.disconnect();
@@ -170,6 +176,7 @@ function playIntroduction() {
   voiceDistortion.connect(voiceGain);
   voiceGain.connect(audioContext.destination);
   audioElement.play();
+  if (isHost) sendSyncUpdate(introFile, 0);
 }
 
 function updateNowPlaying(text) {
@@ -209,10 +216,9 @@ function initializeRadio() {
   if (!initialized) {
     initialized = true;
     if (syncEnabled) {
-      // Skip intro for synced sessions
-      playNext(); // Start directly with the first song
+      if (isHost) playIntroduction();
     } else {
-      playIntroduction(); // Play intro for non-synced sessions
+      playIntroduction();
     }
   }
 }
@@ -222,14 +228,12 @@ function powerOn() {
   radioOn = true;
   audioContext.resume().then(() => {
     staticGain.gain.value = 0.0035;
-    initializeRadio(); // This will skip intro if synced
-    // LED green for playing
+    initializeRadio();
     const powerLed = document.getElementById('power-led');
     if (powerLed) {
       powerLed.style.background = 'limegreen';
       powerLed.style.boxShadow = '0 0 8px limegreen';
     }
-    // Restore power button
     const powerButton = document.getElementById('powerButton');
     if (powerButton) {
       powerButton.textContent = '⏻';
@@ -244,13 +248,11 @@ function powerOff() {
   updateNowPlaying('');
   radioOn = false;
   staticGain.gain.value = 0;
-  // LED red for off
   const powerLed = document.getElementById('power-led');
   if (powerLed) {
     powerLed.style.background = 'red';
     powerLed.style.boxShadow = '0 0 8px red';
   }
-  // Restore power button
   const powerButton = document.getElementById('powerButton');
   if (powerButton) {
     powerButton.textContent = '⏻';
@@ -272,7 +274,8 @@ function toggleRadio() {
 
 let syncEnabled = false;
 let syncCode = '';
-let ws; // WebSocket connection
+let ws;
+let isHost = false;
 
 function connectToSyncSession(code) {
   syncCode = code;
@@ -285,8 +288,7 @@ function connectToSyncSession(code) {
 
   ws.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    if (data.action === 'sync') {
-      // Sync playback
+    if (data.action === 'sync' && !isHost) {
       syncPlayback(data);
     }
   };
@@ -297,7 +299,7 @@ function connectToSyncSession(code) {
 }
 
 function sendSyncUpdate(song, time) {
-  if (syncEnabled && ws && ws.readyState === WebSocket.OPEN) {
+  if (isHost && syncEnabled && ws && ws.readyState === WebSocket.OPEN) {
     ws.send(JSON.stringify({
       action: 'sync',
       code: syncCode,
@@ -307,39 +309,61 @@ function sendSyncUpdate(song, time) {
   }
 }
 
+const syncCodeInput = document.getElementById('syncCodeInput');
+const syncConnectBtn = document.getElementById('syncConnectBtn');
+
+const generateCodeBtn = document.createElement('button');
+generateCodeBtn.textContent = 'Generate Code';
+generateCodeBtn.style.padding = '0.5rem 1rem';
+generateCodeBtn.style.marginLeft = '0.5rem';
+syncCodeInput.parentNode.insertBefore(generateCodeBtn, syncConnectBtn);
+
+function generateSyncCode() {
+  return Math.floor(10000 + Math.random() * 90000).toString();
+}
+
+generateCodeBtn.addEventListener('click', () => {
+  const code = generateSyncCode();
+  syncCodeInput.value = code;
+  isHost = true;
+  updateNowPlaying(`Share this code: ${code}`);
+  const powerButton = document.getElementById('powerButton');
+  if (powerButton) powerButton.style.display = '';
+});
+
+syncConnectBtn.addEventListener('click', () => {
+  const code = syncCodeInput.value.trim();
+  if (code) {
+    connectToSyncSession(code);
+    updateNowPlaying(`Syncing with code: ${code}`);
+    const powerLed = document.getElementById('power-led');
+    if (powerLed) {
+      powerLed.style.background = 'yellow';
+      powerLed.style.boxShadow = '0 0 8px yellow';
+    }
+    const powerButton = document.getElementById('powerButton');
+    if (!isHost && powerButton) {
+      powerButton.style.display = 'none';
+    } else if (isHost && powerButton) {
+      powerButton.textContent = '▶';
+      powerButton.style.background = '#ffe066';
+      powerButton.style.color = '#4c0c54';
+      powerButton.title = 'Start Synced Playback';
+      powerButton.style.display = '';
+    }
+  }
+});
+
 function syncPlayback(data) {
-  // Set song and playback position
+  if (!radioOn) powerOn();
   audioElement.src = songsFolder + data.song;
   audioElement.currentTime = data.time;
   audioElement.play();
   updateNowPlaying(`Now Playing: ${songTitles[data.song] || data.song} (Synced)`);
 }
 
-// Example: Call sendSyncUpdate when song changes
-audioElement.addEventListener('play', () => {
-  if (syncEnabled) {
+setInterval(() => {
+  if (isHost && syncEnabled && !audioElement.paused) {
     sendSyncUpdate(lastSongPlayed, audioElement.currentTime);
   }
-});
-
-document.getElementById('syncConnectBtn').addEventListener('click', () => {
-  const code = document.getElementById('syncCodeInput').value.trim();
-  if (code) {
-    connectToSyncSession(code);
-    updateNowPlaying(`Syncing with code: ${code}`);
-    // LED yellow for synced
-    const powerLed = document.getElementById('power-led');
-    if (powerLed) {
-      powerLed.style.background = 'yellow';
-      powerLed.style.boxShadow = '0 0 8px yellow';
-    }
-    // Power button becomes "Start"
-    const powerButton = document.getElementById('powerButton');
-    if (powerButton) {
-      powerButton.textContent = '▶';
-      powerButton.style.background = '#ffe066';
-      powerButton.style.color = '#4c0c54';
-      powerButton.title = 'Start Synced Playback';
-    }
-  }
-});
+}, 5000);
