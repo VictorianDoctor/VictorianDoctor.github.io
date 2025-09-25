@@ -5,7 +5,7 @@ const hostFolder = 'VoiceLines/';
 const introFile = 'intro.mp3';
 
 const songs = Array.from({ length: 261 }, (_, i) => `song${i + 1}.mp3`);
-const ads = Array.from({ length: 146 }, (_, i) => `ad${i + 1}.mp3`);
+const ads = Array.from({ length: 28 }, (_, i) => `ad${i + 1}.mp3`);
 const plays = Array.from({ length: 41 }, (_, i) => `play${i + 1}.mp3`);
 
 const preVoiceLines = {
@@ -160,20 +160,7 @@ function getFilteredList(list, type) {
         return info && info.genre && info.genre.toLowerCase() === 'fallout';
       });
     }
-    if (type === 'ad') {
-      // Only Fallout genre ads
-      return list.filter(item => {
-        const info = filterData.ads[item];
-        return info && info.genre && info.genre.toLowerCase() === 'fallout';
-      });
-    }
-    if (type === 'play') {
-      // Only Fallout genre plays
-      return list.filter(item => {
-        const info = filterData.plays[item];
-        return info && info.genre && info.genre.toLowerCase() === 'fallout';
-      });
-    }
+    // Fallout mode does NOT filter ads or plays anymore
   }
   return list;
 }
