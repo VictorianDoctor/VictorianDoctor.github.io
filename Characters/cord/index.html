@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <title>Cap'n Cord</title>
+<style>
+body {
+    font-family: myFirstFont !important;
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+</style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li> <li> <a href="/" class="menu-item">Home</a></li>
+            <li> <a href="/about/" class="menu-item">About</a></li>
+            <li> <a href="/author/" class="menu-item">About the Author</a></li>
+        </ul>
+        </div>
+    <div class="banner">
+        <div class="logo">
+            <img src="/images/logo.png" alt="Logo" class="logo-img">
+            <h1 class="site-name">AshHaven</h1>
+        </div>
+        <div class="button-container">
+            <button id="toggleFont" style="margin: 5px; padding: 5px; color: white; background-color: transparent;">Toggle Font</button>
+            <button onclick="toggleSidebar()" style="color: white; background-color: transparent;">≡</button>
+        </div>
+    </div>
+    <div class="header-container">
+    </div>
+
+    <div class="container">
+        
+<header class="header">
+    <h1>Cap'n Cord</h1>
+</header>
+        
+<div class="content">
+    
+    Lawful Neutral Warforged Artificer (2nd level)
+    <br><br><u>Ability Scores:</u><br>
+    <b>Strength - </b>12<br>
+    <b>Dexterity - </b>18<br>
+    <b>Constitution - </b>15<br>
+    <b>Intelligence - </b>16<br>
+    <b>Wisdom - </b>10<br>
+    <b>Charisma - </b>10
+
+    <br><br><u>Skills</u><br>
+    <b>Athletics - </b>Proficient<br>
+    <b>History - </b>Mastery<br>
+    <b>Investigation - </b>Proficient<br>
+    <b>Perception - </b>Proficient<br>
+    <b>Survival - </b>Mastery<br>
+</div>
+
+<footer class="footer">
+    <script src="https://giscus.app/client.js"
+        data-repo="VictorianDoctor/VictorianDoctor.github.io"
+        data-repo-id="R_kgDOLozQqQ"
+        data-category="General"
+        data-category-id="DIC_kwDOLozQqc4Cee70"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+    </script>
+    &copy; 2025 AshHaven
+</footer>
+</div>
+
+<script>
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// Dyslexic Font Toggle Functionality
+document.getElementById('toggleFont').addEventListener('click', function() {
+    const contentElement = document.querySelector('.content');
+    contentElement.classList.toggle('dyslexic-font');
+});
+</script>
+</body>
+</html>

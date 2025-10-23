@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AshHaven</title>
+  <link rel="icon" href="/images/logo.png" type="image/png">
+  <link rel="stylesheet" href="/styles.css">
+  <meta property="og:title" content="AshHaven" />
+  <meta property="og:description" content="Welcome to AshHaven!" />
+  <meta property="og:url" content="https://ashhaven.com/" />
+  <meta property="og:image" content="https://ashhaven.com/images/logo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AshHaven" />
+  <meta name="theme-color" content="#7800ff" />
+<style>
+body {
+  background-image: url('/images/background.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #000; 
+}
+</style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li> <li> <a href="/" class="menu-item">Home</a></li>
+            <li> <a href="/about/" class="menu-item">About</a></li>
+            <li> <a href="/author/" class="menu-item">About the Author</a></li>
+    </ul>
+    </div>
+    <div class="banner">
+        <div class="logo">
+            <img src="/images/logo.png" alt="Logo" class="logo-img">
+            <h1 class="site-name">AshHaven</h1>
+        </div>
+        <div class="button-container">
+            <button onclick="toggleSidebar()" style="color: white; background-color: transparent;">≡</button>
+        </div>
+    </div>
+    <div class="header-container">
+    </div>
+
+    <div class="container">
+        
+<header class="header">
+    <h1>Welcome to AshHaven!</h1>
+    </header>
+
+<div class="post">
+    <h2 class="post-title"><a href="post1/" style="color:#8d1ed2;">{Placeholder}</a></h2>
+        <p>Coming Soon!</p>
+</div>
+
+<footer class="footer">
+    &copy; <a>2025 AshHaven</a>
+</footer>
+</div>
+
+<script>
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// Dyslexic Font Toggle Functionality
+document.getElementById('toggleFont').addEventListener('click', function() {
+    const contentElement = document.querySelector('.content');
+    contentElement.classList.toggle('dyslexic-font');
+});
+</script>
+</body>
+</html>
