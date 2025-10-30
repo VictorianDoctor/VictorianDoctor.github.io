@@ -149,6 +149,11 @@ function isFalloutMode() {
   return fallout && fallout.checked;
 }
 
+function isAdFreeMode() {
+  const adFree = document.getElementById('adFreeMode');
+  return adFree && adFree.checked;
+}
+
 // Example filter for Fallout Mode (songs, ads, plays)
 function getFilteredList(list, type) {
   const falloutMode = document.getElementById('falloutMode');
@@ -192,6 +197,11 @@ function playNext() {
       audioElement.play().catch(() => {});
     });
   } else {
+    if (isAdFreeMode()) {
+      currentSongCount = 0;
+      playNext();
+      return;
+    }
     if (Math.random() < 0.2) {
       let playList = getFilteredList(plays, 'play');
       nextSource = getRandomItem(playList);
