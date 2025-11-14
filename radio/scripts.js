@@ -322,10 +322,9 @@ function powerOff() {
   updateNowPlaying('');
   radioOn = false;
   staticGain.gain.value = 0;
-  // Pause static and music
-  if (!audioElement.paused) {
-    audioElement.pause();
-  }
+  // Pause static and music/voice immediately
+  audioElement.pause();
+  audioElement.onended = null; // Prevent auto-resume after pause
   // No need to stop staticNoise, just mute via gain
   const powerLed = document.getElementById('power-led');
   if (powerLed) {
