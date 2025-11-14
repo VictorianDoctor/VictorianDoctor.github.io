@@ -291,12 +291,33 @@ function powerOn() {
   audioContext.resume().then(() => {
     staticGain.gain.value = 0.0035;
     // Resume static
-    if (staticNoise && staticNoise.buffer && staticNoise.playbackState !== 'playing') {
-      // If staticNoise was stopped, recreate and start it
-      // But since we use .pause()/.start(), just resume context
-    }
     // Resume music/audio
     if (audioElement.paused && audioElement.src) {
+      // Restore Now Playing display if a song/ad/play is loaded
+      let src = audioElement.src;
+      if (src) {
+        if (src.includes(songsFolder)) {
+          const songFile = src.split('/').pop();
+          const displayTitle = songTitles[songFile] ? songTitles[songFile].title : songFile;
+          updateNowPlaying(`Now Playing: ${displayTitle}`);
+          audioElement.onended = () => playVoiceLine(songFile, false);
+        } else if (src.includes(adsFolder)) {
+          const adFile = src.split('/').pop();
+          updateNowPlaying(`Ad: ${adFile}`);
+          audioElement.onended = playNext;
+        } else if (src.includes(playsFolder)) {
+          const playFile = src.split('/').pop();
+          updateNowPlaying(`Radio Play: ${playFile}`);
+          audioElement.onended = playNext;
+        } else if (src.includes(hostFolder)) {
+          const hostFile = src.split('/').pop();
+          updateNowPlaying(`Host: ${hostFile}`);
+          audioElement.onended = playNext;
+        } else if (src.includes(introFile)) {
+          updateNowPlaying('Welcome to Quantum Radio');
+          audioElement.onended = playNext;
+        }
+      }
       audioElement.play().catch(() => {});
     }
     // Only play introduction if never initialized
