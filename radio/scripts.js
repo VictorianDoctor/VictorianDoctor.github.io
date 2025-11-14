@@ -290,7 +290,19 @@ function powerOn() {
   radioOn = true;
   audioContext.resume().then(() => {
     staticGain.gain.value = 0.0035;
-    initializeRadio();
+    // Resume static
+    if (staticNoise && staticNoise.buffer && staticNoise.playbackState !== 'playing') {
+      // If staticNoise was stopped, recreate and start it
+      // But since we use .pause()/.start(), just resume context
+    }
+    // Resume music/audio
+    if (audioElement.paused && audioElement.src) {
+      audioElement.play().catch(() => {});
+    }
+    // Only play introduction if never initialized
+    if (!initialized) {
+      initializeRadio();
+    }
     const powerLed = document.getElementById('power-led');
     if (powerLed) {
       powerLed.style.background = 'limegreen';
@@ -310,6 +322,11 @@ function powerOff() {
   updateNowPlaying('');
   radioOn = false;
   staticGain.gain.value = 0;
+  // Pause static and music
+  if (!audioElement.paused) {
+    audioElement.pause();
+  }
+  // No need to stop staticNoise, just mute via gain
   const powerLed = document.getElementById('power-led');
   if (powerLed) {
     powerLed.style.background = 'red';
@@ -327,9 +344,9 @@ function powerOff() {
 function toggleRadio() {
   if (radioOn) {
     powerOff();
-    radioOn = false;
+    // radioOn = false; // already set in powerOff
   } else {
     powerOn();
-    radioOn = true;
+    // radioOn = true; // already set in powerOn
   }
 }
