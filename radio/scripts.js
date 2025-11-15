@@ -5,7 +5,7 @@ const hostFolder = 'VoiceLines/';
 const introFile = 'intro.mp3';
 
 const songs = Array.from({ length: 261 }, (_, i) => `song${i + 1}.mp3`);
-const ads = Array.from({ length: 28 }, (_, i) => `ad${i + 1}.mp3`);
+const ads = Array.from({ length: 42 }, (_, i) => `ad${i + 1}.mp3`);
 const plays = Array.from({ length: 41 }, (_, i) => `play${i + 1}.mp3`);
 
 const preVoiceLines = {
@@ -26,10 +26,10 @@ fetch('song_titles.json')
   .then(res => res.json())
   .then(data => songTitles = data);
 
-let filterData = { ads: {}, plays: {} };
-fetch('filter.json')
+let adTitles = { ads: {}, plays: {} };
+fetch('ad_titles.json')
   .then(res => res.json())
-  .then(data => filterData = data);
+  .then(data => adTitles = data);
 
 const audioElement = document.getElementById('audio-player');
 const volumeSlider = document.getElementById('volumeSlider');
@@ -205,12 +205,16 @@ function playNext() {
     if (Math.random() < 0.2) {
       let playList = getFilteredList(plays, 'play');
       nextSource = getRandomItem(playList);
-      updateNowPlaying(`Radio Play: ${nextSource}`);
+      // Use adTitles.plays for display
+      const displayTitle = adTitles.plays[nextSource] ? adTitles.plays[nextSource].title : nextSource;
+      updateNowPlaying(`Radio Play: ${displayTitle}`);
       audioElement.src = playsFolder + nextSource;
     } else {
       let adList = getFilteredList(ads, 'ad');
       nextSource = getRandomItem(adList);
-      updateNowPlaying(`Ad: ${nextSource}`);
+      // Use adTitles.ads for display
+      const displayTitle = adTitles.ads[nextSource] ? adTitles.ads[nextSource].title : nextSource;
+      updateNowPlaying(`Ad: ${displayTitle}`);
       audioElement.src = adsFolder + nextSource;
     }
     currentSongCount = 0;
@@ -293,7 +297,6 @@ function powerOn() {
     // Resume static
     // Resume music/audio
     if (audioElement.paused && audioElement.src) {
-      // Restore Now Playing display if a song/ad/play is loaded
       let src = audioElement.src;
       if (src) {
         if (src.includes(songsFolder)) {
@@ -303,11 +306,13 @@ function powerOn() {
           audioElement.onended = () => playVoiceLine(songFile, false);
         } else if (src.includes(adsFolder)) {
           const adFile = src.split('/').pop();
-          updateNowPlaying(`Ad: ${adFile}`);
+          const displayTitle = adTitles.ads[adFile] ? adTitles.ads[adFile].title : adFile;
+          updateNowPlaying(`Ad: ${displayTitle}`);
           audioElement.onended = playNext;
         } else if (src.includes(playsFolder)) {
           const playFile = src.split('/').pop();
-          updateNowPlaying(`Radio Play: ${playFile}`);
+          const displayTitle = adTitles.plays[playFile] ? adTitles.plays[playFile].title : playFile;
+          updateNowPlaying(`Radio Play: ${displayTitle}`);
           audioElement.onended = playNext;
         } else if (src.includes(hostFolder)) {
           const hostFile = src.split('/').pop();
