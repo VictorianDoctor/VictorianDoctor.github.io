@@ -5,7 +5,7 @@ const hostFolder = 'VoiceLines/';
 const introFile = 'intro.mp3';
 
 const songs = Array.from({ length: 261 }, (_, i) => `song${i + 1}.mp3`);
-const ads = Array.from({ length: 42 }, (_, i) => `ad${i + 1}.mp3`);
+const ads = Array.from({ length: 43 }, (_, i) => `ad${i + 1}.mp3`);
 const plays = Array.from({ length: 41 }, (_, i) => `play${i + 1}.mp3`);
 
 const preVoiceLines = {
