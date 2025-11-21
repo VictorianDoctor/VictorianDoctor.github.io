@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quantum Radio</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="/radio/manifest.json">
   <meta property="og:title" content="Quantum Radio" />
   <meta property="og:description" content="You're listening to Quantum Radio!" />
   <meta property="og:url" content="https://ashhaven.com/" />
@@ -146,6 +147,12 @@
         if (typeof powerOff === 'function') powerOff();
       }
     });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/radio/service-worker.js')
+        .then(() => console.log('Service Worker Registered'))
+        .catch((error) => console.error('Service Worker Registration Failed:', error));
+    }
   </script>
 </body>
 </html>
